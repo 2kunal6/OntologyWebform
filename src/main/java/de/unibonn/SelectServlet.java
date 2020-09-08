@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 
 @WebServlet(
@@ -28,6 +27,9 @@ public class SelectServlet extends HttpServlet {
         req.setAttribute("retVal", retValue);
         RequestDispatcher view = req.getRequestDispatcher("result.jsp");
         view.forward(req, resp);
+        
+        ReadOntology ro = new ReadOntology();
+        ro.loadModel();
 
     }
 }
