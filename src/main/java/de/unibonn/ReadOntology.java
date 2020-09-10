@@ -8,7 +8,7 @@ import org.apache.jena.rdf.model.Resource;
 
 public class ReadOntology {
 
-    protected static void loadModel() {
+    void loadModel() {
         OntModel model = ModelFactory.createOntologyModel();
         Model mod = model.read("https://raw.githubusercontent.com/ISA-tools/linkedISA-ontologies/master/isaterms.owl");
         ResIterator it = mod.listSubjects();
