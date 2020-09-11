@@ -31,7 +31,9 @@ public class SelectServlet extends HttpServlet {
         ReadOntology ro = new ReadOntology();
         ro.loadModel();
 
-        new RDFConnector().query();
-
+        RDFConnector rc = new RDFConnector();
+        //rc.query();
+        //rc.insertData();
+        rc.connectFuseki();
     }
 }
