@@ -34,6 +34,7 @@ public class SelectServlet extends HttpServlet {
         RDFConnector rc = new RDFConnector();
         //rc.query();
         //rc.insertData();
-        rc.connectFuseki();
+        //rc.connectFuseki();
+        rc.getFusekiClasses();
     }
 }
