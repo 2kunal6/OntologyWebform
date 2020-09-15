@@ -88,7 +88,7 @@ public class RDFConnector {
         System.out.println("Java connecting to FUSEKI Finished *************************************");
     }
 
-    void getFusekiClasses() {
+    Set<Node> getFusekiClasses() {
         RDFConnectionRemoteBuilder builder = RDFConnectionFuseki.create()
                 .destination("http://localhost:3030/test/query");
 
@@ -115,10 +115,11 @@ public class RDFConnector {
                         .forEach(n->results.add(n));
             });
 
-            for(Node n : results)System.out.println("THIS : " + n.toString());
+            //for(Node n : results)System.out.println("THIS : " + n.toString());
+            return results;
         }
 
-        System.out.println("Java connecting to FUSEKI Finished *************************************");
+        //System.out.println("Java connecting to FUSEKI Finished *************************************");
     }
 }
 
