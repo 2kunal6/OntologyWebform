@@ -27,9 +27,6 @@ public class SelectServlet extends HttpServlet {
         req.setAttribute("retVal", retValue);
         RequestDispatcher view = req.getRequestDispatcher("result.jsp");
         view.forward(req, resp);
-        
-        ReadOntology ro = new ReadOntology();
-        ro.loadModel();
 
         RDFConnector rc = new RDFConnector("test");
         //rc.query();
