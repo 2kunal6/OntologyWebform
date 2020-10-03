@@ -21,11 +21,8 @@ import org.apache.jena.atlas.iterator.Iter;
 import org.apache.jena.graph.Node;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.RDFNode;
-import org.apache.jena.rdfconnection.RDFConnection;
-import org.apache.jena.rdfconnection.RDFConnectionFactory;
 import org.apache.jena.rdfconnection.RDFConnectionFuseki;
 import org.apache.jena.rdfconnection.RDFConnectionRemoteBuilder;
-import org.apache.jena.system.Txn;
 
 import java.util.HashSet;
 import java.util.List;
@@ -34,41 +31,15 @@ import java.util.Set;
 
 /** RDF Connection example */
 public class RDFConnector {
-    void query() {
-        Query query = QueryFactory.create("SELECT * { {?s ?p ?o } UNION { GRAPH ?g { ?s ?p ?o } } }");
-        Dataset dataset = DatasetFactory.createTxnMem();
-        RDFConnection conn = RDFConnectionFactory.connect(dataset);
 
-        Txn.executeWrite(conn, () ->{
-            System.out.println("Load a file");
-            conn.load("data.ttl");
-            conn.load("http://example/g0", "data.ttl");
-            System.out.println("In write transaction");
-            conn.queryResultSet(query, ResultSetFormatter::out);
-        });
-        // And again - implicit READ transaction.
-        System.out.println("After write transaction");
-        conn.queryResultSet(query, ResultSetFormatter::out);
-    }
+    RDFConnectionFuseki conn;
 
-    void insertData() {
-        Dataset dataset = DatasetFactory.createTxnMem();
-        RDFConnection conn = RDFConnectionFactory.connect(dataset);
-        Txn.executeWrite(conn, () ->{
-            System.out.println("Load a file");
-            conn.load("data.ttl");
-            conn.load("http://example/g0", "data.ttl");
-            System.out.println("In write transaction");
-            conn.update("INSERT DATA { <http://example.org/data/transaction/999> a <http://example.org/ont/transaction-log/zzz> . }");
-        });
-        conn.put("data.ttl");
-        conn.close();
-        System.out.println("After write transaction");
+    RDFConnector(String dataset) {
+        RDFConnectionRemoteBuilder builder = RDFConnectionFuseki.create().destination("http://localhost:3030/" + dataset + "/query");
+        conn = (RDFConnectionFuseki)builder.build();
     }
 
     void connectFuseki() {
-        RDFConnectionRemoteBuilder builder = RDFConnectionFuseki.create()
-                .destination("http://localhost:3030/test/query");
 
         System.out.println("Java connecting to FUSEKI*************************************");
         Query query = QueryFactory.create("prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
@@ -80,17 +51,14 @@ public class RDFConnector {
                 "}");
 
         // In this variation, a connection is built each time.
-        try ( RDFConnectionFuseki conn = (RDFConnectionFuseki)builder.build() ) {
-            conn.queryResultSet(query, ResultSetFormatter::out);
-            conn.update("INSERT DATA { <http://example.org/data/transaction/999> a <http://example.org/ont/transaction-log/zzz> . }");
-        }
+
+        conn.queryResultSet(query, ResultSetFormatter::out);
+        conn.update("INSERT DATA { <http://example.org/data/transaction/999> a <http://example.org/ont/transaction-log/zzz> . }");
 
         System.out.println("Java connecting to FUSEKI Finished *************************************");
     }
 
     Set<Node> getFusekiClasses() {
-        RDFConnectionRemoteBuilder builder = RDFConnectionFuseki.create()
-                .destination("http://localhost:3030/test/query");
 
         System.out.println("Java connecting to FUSEKI*************************************");
         Query query = QueryFactory.create("prefix owl: <http://www.w3.org/2002/07/owl#>\n" +
@@ -104,20 +72,19 @@ public class RDFConnector {
                 "}");
 
         // In this variation, a connection is built each time.
-        try ( RDFConnectionFuseki conn = (RDFConnectionFuseki)builder.build() ) {
-            Set<Node> results = new HashSet<>();
-            conn.queryResultSet(query, rs->{
-                List<QuerySolution> list = Iter.toList(rs);
-                list.stream()
-                        .map(qs->qs.get("class"))
-                        .filter(Objects::nonNull)
-                        .map(RDFNode::asNode)
-                        .forEach(n->results.add(n));
-            });
 
-            //for(Node n : results)System.out.println("THIS : " + n.toString());
-            return results;
-        }
+        Set<Node> results = new HashSet<>();
+        conn.queryResultSet(query, rs->{
+            List<QuerySolution> list = Iter.toList(rs);
+            list.stream()
+                    .map(qs->qs.get("class"))
+                    .filter(Objects::nonNull)
+                    .map(RDFNode::asNode)
+                    .forEach(n->results.add(n));
+        });
+
+        //for(Node n : results)System.out.println("THIS : " + n.toString());
+        return results;
 
         //System.out.println("Java connecting to FUSEKI Finished *************************************");
     }
