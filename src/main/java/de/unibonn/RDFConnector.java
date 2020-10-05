@@ -34,18 +34,23 @@ public class RDFConnector {
 
     RDFConnectionFuseki conn;
 
-    RDFConnector(String dataset) {
-        RDFConnectionRemoteBuilder builder = RDFConnectionFuseki.create().destination("http://localhost:3030/" + dataset + "/query");
+    RDFConnector(String dataset, String sparql_endpoint) {
+        RDFConnectionRemoteBuilder builder = RDFConnectionFuseki.create().destination("http://localhost:3030/" + dataset + "/" + sparql_endpoint);
         conn = (RDFConnectionFuseki)builder.build();
     }
+
+    String prefixes = "prefix :      <http://www.isa-tools.org/owl/isa.owl#> \n" +
+            "prefix isaterms: <http://purl.org/isaterms/> \n" +
+            "prefix terms: <http://purl.org/dc/terms/> \n" +
+            "prefix owl:   <http://www.w3.org/2002/07/owl#> \n" +
+            "prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n" +
+            "prefix xsd:   <http://www.w3.org/2001/XMLSchema#> \n" +
+            "prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> ";
 
     void connectFuseki() {
 
         System.out.println("Java connecting to FUSEKI*************************************");
-        Query query = QueryFactory.create("prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
-                "prefix owl: <http://www.w3.org/2002/07/owl#>\n" +
-                "\n" +
-                "SELECT ?subject ?predicate ?object\n" +
+        Query query = QueryFactory.create(prefixes + "SELECT ?subject ?predicate ?object\n" +
                 "WHERE {\n" +
                 "  ?subject ?predicate ?object\n" +
                 "}");
@@ -61,10 +66,7 @@ public class RDFConnector {
     Set<Node> getFusekiClasses() {
 
         System.out.println("Java connecting to FUSEKI*************************************");
-        Query query = QueryFactory.create("prefix owl: <http://www.w3.org/2002/07/owl#>\n" +
-                "prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
-                "\n" +
-                "SELECT DISTINCT ?class ?label ?description\n" +
+        Query query = QueryFactory.create(prefixes + "SELECT DISTINCT ?class ?label ?description\n" +
                 "WHERE {\n" +
                 "  ?class a owl:Class.\n" +
                 "  OPTIONAL { ?class rdfs:label ?label}\n" +
@@ -87,6 +89,15 @@ public class RDFConnector {
         return results;
 
         //System.out.println("Java connecting to FUSEKI Finished *************************************");
+    }
+
+    void insertTriple() {
+        System.out.println("Inserting triple to FUSEKI*************************************");
+        String query = prefixes + "INSERT DATA { <http://purl.org/dc/terms/description/desc_1> rdf:type terms:description . }";
+        conn.update(query);
+
+        System.out.println("Insert to FUSEKI Finished *************************************");
+        conn.close();
     }
 }
 

@@ -28,10 +28,13 @@ public class SelectServlet extends HttpServlet {
         RequestDispatcher view = req.getRequestDispatcher("result.jsp");
         view.forward(req, resp);
 
-        RDFConnector rc = new RDFConnector("test");
+        //RDFConnector rc = new RDFConnector("test");
         //rc.query();
         //rc.insertData();
         //rc.connectFuseki();
-        rc.getFusekiClasses();
+        //rc.getFusekiClasses();
+
+        RDFConnector irc = new RDFConnector("isa_rdf_triples", "update");
+        irc.insertTriple();
     }
 }

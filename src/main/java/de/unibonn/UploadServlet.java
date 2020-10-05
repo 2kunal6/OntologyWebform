@@ -27,7 +27,7 @@ public class UploadServlet extends HttpServlet {
         InputStream fileContent = filePart.getInputStream();
         System.out.println(IOUtils.toString(fileContent));
 
-        RDFConnector rc = new RDFConnector("test");
+        RDFConnector rc = new RDFConnector("test", "query");
         Set<Node> classes = rc.getFusekiClasses();
 
         List<String> classList = classes.stream().map(s -> s.toString()).collect(Collectors.toList());
