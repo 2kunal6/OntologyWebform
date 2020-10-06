@@ -19,11 +19,14 @@ package de.unibonn;
 
 import org.apache.jena.atlas.iterator.Iter;
 import org.apache.jena.graph.Node;
+import org.apache.jena.ontology.OntModel;
 import org.apache.jena.query.*;
+import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdfconnection.RDFConnectionFuseki;
 import org.apache.jena.rdfconnection.RDFConnectionRemoteBuilder;
 
+import java.io.InputStream;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -89,6 +92,12 @@ public class RDFConnector {
         return results;
 
         //System.out.println("Java connecting to FUSEKI Finished *************************************");
+    }
+
+    void getClasses(InputStream fileContent) {
+        OntModel model = ModelFactory.createOntologyModel();
+        model.read(fileContent, "");
+        System.out.println(model.listClasses());
     }
 
     void insertTriple() {
