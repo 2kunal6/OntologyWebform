@@ -29,25 +29,17 @@
 <h1>
 
 </h1>
-<%
-List result= (List) request.getAttribute("classList");
-Iterator it = result.iterator();
-out.println("<table>");
-while(it.hasNext()){
-    String val = (String)it.next();
-    out.println("<tr>");
-    out.println("<td>");
-    out.println("<input type='text' id=" + val + "name=" + val + ">");
-    out.println("</td>");
-    out.println("<td>");
-    out.println(" is a ");
-    out.println("</td>");
-    out.println("<td>");
-    out.println(val);
-    out.println("</td>");
-    out.println("</tr>");
-}
-out.println("</table>");
-%>
+<form method="post" action="triple">
+    <%
+    List result= (List) request.getAttribute("classList");
+    Iterator it = result.iterator();
+    while(it.hasNext()){
+        String val = (String)it.next();
+        out.println("<label for=" + val + ">" + val + ":</label>");
+        out.print("<input type='text' id='" + val + "' name='" + val + "'><br/>");
+    }
+    %>
+    <input type="submit">
+</form>
 </body>
 </html>
