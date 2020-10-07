@@ -2,6 +2,7 @@ package de.unibonn;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.jena.graph.Node;
+import org.apache.jena.ontology.OntClass;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -36,11 +37,10 @@ public class UploadServlet extends HttpServlet {
         RDFConnector rc = new RDFConnector("test", "query");
         //Set<Node> classes = rc.getFusekiClasses();
         //Set<Node> classes = rc.getClasses(fileContent);
-        rc.getClasses(fileContent, ontology_url);
+        Set<OntClass> classes = rc.getClasses(fileContent, ontology_url);
 
-
-        //List<String> classList = classes.stream().map(s -> s.toString()).collect(Collectors.toList());4
-        List<String> classList = new ArrayList<String>();
+        List<String> classList = classes.stream().map(s -> s.toString()).collect(Collectors.toList());
+        //List<String> classList = new ArrayList<String>();
 
         request.setAttribute("classList", classList);
         RequestDispatcher view = request.getRequestDispatcher("webform.jsp");

@@ -96,15 +96,18 @@ public class RDFConnector {
         //System.out.println("Java connecting to FUSEKI Finished *************************************");
     }
 
-    void getClasses(InputStream fileContent, String ontology_url) {
+    Set<OntClass> getClasses(InputStream fileContent, String ontology_url) {
         OntModel model = ModelFactory.createOntologyModel();
         if(ontology_url==null || ontology_url.equals(""))model.read(fileContent, "");
         else model.read(ontology_url);
 
         ExtendedIterator<OntClass> iter = model.listClasses();
+
+        Set<OntClass> classSet = new HashSet<>();
         while ( iter.hasNext()){
-            System.out.println(iter.next());
+            classSet.add(iter.next());
         }
+        return classSet;
     }
 
     void insertTriple() {
