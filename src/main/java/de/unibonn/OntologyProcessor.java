@@ -31,7 +31,10 @@ public class OntologyProcessor {
             Iterator<OntClass> superIter = ontClass.listSuperClasses();
             List<Restriction> restrictions = new ArrayList<>();
             while(superIter.hasNext()) {
-                restrictions.add(superIter.next().asRestriction());
+                OntClass superOntClass = superIter.next();
+                if(superOntClass.isRestriction()) {
+                    restrictions.add(superOntClass.asRestriction());
+                }
             }
             classRestrictions.put(ontClass, restrictions);
         }
