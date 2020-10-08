@@ -21,10 +21,15 @@ public class StoreTripleServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("STORE TRIPLE*************************************************************************************************************");
         HttpSession session = request.getSession();
+        RDFConnector rdfConnector = new RDFConnector("isa_rdf_triples", "update");
 
         Map<String, String[]> params = request. getParameterMap();
         for (Map.Entry<String, String[]> entry : params.entrySet()) {
-            System.out.println(entry.getKey() + " : " + entry.getValue(). toString());
+            if(entry.getValue().length!=0 && !entry.getValue()[0].equals("")) {
+                System.out.println(entry.getKey() + " " + entry.getValue().length + " " + entry.getValue()[0]);
+                String[] keySplit = entry.getKey().split("_XXX_CLASS_PROPERTY_SEPARATOR_XXX_");
+                rdfConnector.insertTriple(keySplit[0], keySplit[1], entry.getValue()[0]);
+            }
         }
 
         //request.setAttribute("classPropertiesAsString", classPropertiesAsString);

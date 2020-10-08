@@ -37,7 +37,7 @@
         out.println("<input type='text' id='" + pair.getKey() + "' name='" + pair.getKey() + "'>");
         for(String property : pair.getValue()) {
             out.println("<label for=" + property + ">" + property + ":</label>");
-            out.println("<input type='text' id='" + property + "' name='" + pair.getKey() + "XXX" + property + "'><br/>");
+            out.println("<input type='text' id='" + property + "' name='" + pair.getKey() + "_XXX_CLASS_PROPERTY_SEPARATOR_XXX_" + property + "'><br/>");
         }
         out.println("<br/><br/>");
     }
