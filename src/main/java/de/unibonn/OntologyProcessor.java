@@ -18,6 +18,7 @@
 package de.unibonn;
 
 import org.apache.jena.ontology.OntClass;
+import org.apache.jena.ontology.OntProperty;
 import org.apache.jena.ontology.Restriction;
 
 import java.util.*;
@@ -39,6 +40,16 @@ public class OntologyProcessor {
             classRestrictions.put(ontClass, restrictions);
         }
         return classRestrictions;
+    }
+
+    Map<OntClass, List<OntProperty>> getClassAndProperties(Set<OntClass> classes) {
+        Map<OntClass, List<OntProperty>> classAndProperties = new HashMap<>();
+        Iterator<OntClass> iter = classes.iterator();
+        while (iter.hasNext()) {
+            OntClass ontClass = iter.next();
+            classAndProperties.put(ontClass, ontClass.listDeclaredProperties().toList());
+        }
+        return classAndProperties;
     }
 }
 

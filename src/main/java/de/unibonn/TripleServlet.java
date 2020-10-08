@@ -1,6 +1,7 @@
 package de.unibonn;
 
 import org.apache.jena.ontology.OntClass;
+import org.apache.jena.ontology.OntProperty;
 import org.apache.jena.ontology.Restriction;
 
 import javax.servlet.RequestDispatcher;
@@ -28,11 +29,18 @@ public class TripleServlet extends HttpServlet {
         Set<OntClass> classes = (Set<OntClass>) session.getAttribute("classes");
         Map<OntClass, List<Restriction>> classRestrictions = ontologyProcessor.getClassRestrictions(classes);
 
-        Iterator<OntClass> iter = classes.iterator();
-        while (iter.hasNext()) {
-            OntClass ontClass = iter.next();
-            System.out.println(ontClass.listDeclaredProperties().toList().toString());
+        Map<String, List<String>> classPropertiesAsString = new HashMap<>();
+        Map<OntClass, List<OntProperty>> classAndProperties = ontologyProcessor.getClassAndProperties(classes);
+
+        for (Map.Entry<OntClass, List<OntProperty>> pair : classAndProperties.entrySet()) {
+            List<String> propertiesAsString = new ArrayList<>();
+            for(OntProperty ontProperty : pair.getValue())propertiesAsString.add(ontProperty.toString());
+            classPropertiesAsString.put(pair.getKey().toString(), propertiesAsString);
         }
+
+        request.setAttribute("classPropertiesAsString", classPropertiesAsString);
+        RequestDispatcher view = request.getRequestDispatcher("triple.jsp");
+        view.forward(request, response);
 
     }
 }
