@@ -35,6 +35,6 @@ public class SelectServlet extends HttpServlet {
         //rc.getFusekiClasses();
 
         RDFConnector irc = new RDFConnector("isa_rdf_triples", "update");
-        irc.insertTriple();
+        //irc.insertTriple();
     }
 }

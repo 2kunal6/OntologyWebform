@@ -110,13 +110,12 @@ public class RDFConnector {
         return classSet;
     }
 
-    void insertTriple() {
+    void insertTriple(String subject, String predicate, String object) {
         System.out.println("Inserting triple to FUSEKI*************************************");
-        String query = prefixes + "INSERT DATA { <http://purl.org/dc/terms/description/desc_1> rdf:type terms:description . }";
+        String query = prefixes + "INSERT DATA { " + subject + " " + predicate + " " + object + " . }";
         conn.update(query);
 
         System.out.println("Insert to FUSEKI Finished *************************************");
-        conn.close();
     }
 }
 

@@ -33,11 +33,11 @@
     <%
     Map<String, List<String>> classPropertiesAsString = (Map<String, List<String>>)request.getAttribute("classPropertiesAsString");
     for (Map.Entry<String, List<String>> pair : classPropertiesAsString.entrySet()) {
-        out.println("<label for=Class " + pair.getKey() + ">" + pair.getKey() + ":</label>");
+        out.println("<label for=" + pair.getKey() + ">" + pair.getKey() + ":</label>");
         out.println("<input type='text' id='" + pair.getKey() + "' name='" + pair.getKey() + "'>");
         for(String property : pair.getValue()) {
-            out.println("<label for=Property " + property + ">" + property + ":</label>");
-            out.println("<input type='text' id='" + property + "' name='" + property + "'><br/>");
+            out.println("<label for=" + property + ">" + property + ":</label>");
+            out.println("<input type='text' id='" + property + "' name='" + pair.getKey() + "XXX" + property + "'><br/>");
         }
         out.println("<br/><br/>");
     }
