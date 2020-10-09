@@ -19,6 +19,7 @@ package de.unibonn;
 
 import org.apache.jena.atlas.iterator.Iter;
 import org.apache.jena.graph.Node;
+import org.apache.jena.graph.Triple;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.query.*;
@@ -29,10 +30,7 @@ import org.apache.jena.rdfconnection.RDFConnectionRemoteBuilder;
 import org.apache.jena.util.iterator.ExtendedIterator;
 
 import java.io.InputStream;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /** RDF Connection example */
 public class RDFConnector {
@@ -52,48 +50,26 @@ public class RDFConnector {
             "prefix xsd:   <http://www.w3.org/2001/XMLSchema#> \n" +
             "prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> ";
 
-    void connectFuseki() {
+    List<Triple> getAllTriples() {
 
         System.out.println("Java connecting to FUSEKI*************************************");
-        Query query = QueryFactory.create(prefixes + "SELECT ?subject ?predicate ?object\n" +
-                "WHERE {\n" +
-                "  ?subject ?predicate ?object\n" +
-                "}");
+        Query query = QueryFactory.create(prefixes + "SELECT ?subject ?predicate ?object WHERE { ?subject ?predicate ?object }");
 
-        // In this variation, a connection is built each time.
-
-        conn.queryResultSet(query, ResultSetFormatter::out);
-        conn.update("INSERT DATA { <http://example.org/data/transaction/999> a <http://example.org/ont/transaction-log/zzz> . }");
-
-        System.out.println("Java connecting to FUSEKI Finished *************************************");
-    }
-
-    Set<Node> getFusekiClasses() {
-
-        System.out.println("Java connecting to FUSEKI*************************************");
-        Query query = QueryFactory.create(prefixes + "SELECT DISTINCT ?class ?label ?description\n" +
-                "WHERE {\n" +
-                "  ?class a owl:Class.\n" +
-                "  OPTIONAL { ?class rdfs:label ?label}\n" +
-                "  OPTIONAL { ?class rdfs:comment ?description}\n" +
-                "}");
-
-        // In this variation, a connection is built each time.
-
-        Set<Node> results = new HashSet<>();
+        List<Triple> triples = new ArrayList<>();
         conn.queryResultSet(query, rs->{
             List<QuerySolution> list = Iter.toList(rs);
-            list.stream()
-                    .map(qs->qs.get("class"))
-                    .filter(Objects::nonNull)
-                    .map(RDFNode::asNode)
-                    .forEach(n->results.add(n));
+            for(QuerySolution qs : list) {
+                triples.add(new Triple(qs.get("subject").asNode(), qs.get("predicate").asNode(), qs.get("object").asNode()));
+            }
         });
+        System.out.println(triples.size());
+        for(Triple triple : triples) {
+            System.out.println(triple.getSubject() + " " + triple.getPredicate() + " " + triple.getObject());
+        }
 
         //for(Node n : results)System.out.println("THIS : " + n.toString());
-        return results;
+        return triples;
 
-        //System.out.println("Java connecting to FUSEKI Finished *************************************");
     }
 
     Set<OntClass> getClasses(InputStream fileContent, String ontology_url) {

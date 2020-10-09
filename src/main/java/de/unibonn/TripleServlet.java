@@ -21,6 +21,8 @@ public class TripleServlet extends HttpServlet {
         HttpSession session = request.getSession();
         OntologyProcessor ontologyProcessor = new OntologyProcessor();
         RDFConnector rdfConnector = new RDFConnector("isa_rdf_triples", "update");
+        RDFConnector rdfConnectorQuery = new RDFConnector("isa_rdf_triples", "query");
+
 
         System.out.println("INSIDE Triple servlet");
         Map<String, String[]> params = request.getParameterMap();
@@ -31,6 +33,8 @@ public class TripleServlet extends HttpServlet {
         }
         Set<OntClass> classes = (Set<OntClass>) session.getAttribute("classes");
         Map<OntClass, List<Restriction>> classRestrictions = ontologyProcessor.getClassRestrictions(classes);
+
+        rdfConnectorQuery.getAllTriples();
 
         Map<String, List<String>> classPropertiesAsString = new HashMap<>();
         Map<OntClass, List<OntProperty>> classAndProperties = ontologyProcessor.getClassAndProperties(classes);
