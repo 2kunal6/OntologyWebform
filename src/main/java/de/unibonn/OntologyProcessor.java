@@ -17,6 +17,8 @@
  */
 package de.unibonn;
 
+import de.unibonn.model.OntologyClass;
+import org.apache.jena.graph.Triple;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntProperty;
 import org.apache.jena.ontology.Restriction;
@@ -50,6 +52,17 @@ public class OntologyProcessor {
             classAndProperties.put(ontClass, ontClass.listDeclaredProperties().toList());
         }
         return classAndProperties;
+    }
+
+    void setPredicates(List<Triple> allTriples, List<OntologyClass> ontologyClasses) {
+        for(int i=0;i<allTriples.size();i++) {
+            for(int j=0;j<ontologyClasses.size();j++) {
+                if(ontologyClasses.get(j).getOntclass().toString().equals(allTriples.get(i).getSubject().toString())) {
+                    ontologyClasses.get(j).getTriples().add(allTriples.get(i));
+                    break;
+                }
+            }
+        }
     }
 }
 

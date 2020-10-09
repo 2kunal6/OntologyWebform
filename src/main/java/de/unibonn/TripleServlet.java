@@ -1,5 +1,7 @@
 package de.unibonn;
 
+import de.unibonn.model.OntologyClass;
+import org.apache.jena.graph.Triple;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntProperty;
 import org.apache.jena.ontology.Restriction;
@@ -31,10 +33,8 @@ public class TripleServlet extends HttpServlet {
                 rdfConnector.insertTriple(entry.getKey(), "rdf:type", entry.getValue()[0]);
             }
         }
-        Set<OntClass> classes = (Set<OntClass>) session.getAttribute("classes");
-        Map<OntClass, List<Restriction>> classRestrictions = ontologyProcessor.getClassRestrictions(classes);
 
-        rdfConnectorQuery.getAllTriples();
+        Set<OntClass> classes = (Set<OntClass>) session.getAttribute("classes");
 
         Map<String, List<String>> classPropertiesAsString = new HashMap<>();
         Map<OntClass, List<OntProperty>> classAndProperties = ontologyProcessor.getClassAndProperties(classes);

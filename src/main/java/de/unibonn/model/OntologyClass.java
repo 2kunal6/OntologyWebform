@@ -17,6 +17,7 @@
  */
 package de.unibonn.model;
 
+import org.apache.jena.graph.Triple;
 import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntProperty;
@@ -26,6 +27,22 @@ import java.util.*;
 
 public class OntologyClass {
     OntClass ontclass;
-    List<Individual> individuals;
+    List<Triple> triples;
+
+    public OntClass getOntclass() {
+        return ontclass;
+    }
+
+    public void setOntclass(OntClass ontclass) {
+        this.ontclass = ontclass;
+    }
+
+    public List<Triple> getTriples() {
+        return triples;
+    }
+
+    public void setTriples(List<Triple> triples) {
+        this.triples = triples;
+    }
 }
 

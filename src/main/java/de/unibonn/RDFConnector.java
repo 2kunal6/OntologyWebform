@@ -62,10 +62,6 @@ public class RDFConnector {
                 triples.add(new Triple(qs.get("subject").asNode(), qs.get("predicate").asNode(), qs.get("object").asNode()));
             }
         });
-        System.out.println(triples.size());
-        for(Triple triple : triples) {
-            System.out.println(triple.getSubject() + " " + triple.getPredicate() + " " + triple.getObject());
-        }
 
         //for(Node n : results)System.out.println("THIS : " + n.toString());
         return triples;
