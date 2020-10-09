@@ -1,4 +1,5 @@
 <%@ page import ="java.util.*" %>
+<%@ page import ="de.unibonn.model.OntologyClass" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,10 +32,9 @@
 </h1>
 <form method="post" action="triple">
     <%
-    List result= (List) request.getAttribute("classList");
-    Iterator it = result.iterator();
-    while(it.hasNext()){
-        String val = (String)it.next();
+    List<OntologyClass> result= (List<OntologyClass>) request.getAttribute("ontologyClasses");
+    for(OntologyClass ontologyClass : result) {
+        String val = ontologyClass.getOntclass().toString();
         out.println("<label for=" + val + ">" + val + ":</label>");
         out.print("<input type='text' id='" + val + "' name='" + val + "'><br/>");
     }

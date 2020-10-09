@@ -64,6 +64,7 @@ public class UploadServlet extends HttpServlet {
         //List<String> classList = new ArrayList<String>();
 
         request.setAttribute("classList", classList);
+        request.setAttribute("ontologyClasses", ontologyClasses);
         RequestDispatcher view = request.getRequestDispatcher("webform.jsp");
         view.forward(request, response);
     }
