@@ -27,7 +27,16 @@ import java.util.*;
 
 public class OntologyClass {
     OntClass ontclass;
-    List<Triple> triples;
+    List<Triple> triples = new ArrayList<>();
+    List<String> individuals = new ArrayList<>();
+
+    public List<String> getIndividuals() {
+        return individuals;
+    }
+
+    public void setIndividuals(List<String> individuals) {
+        this.individuals = individuals;
+    }
 
     public OntClass getOntclass() {
         return ontclass;
