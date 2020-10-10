@@ -47,7 +47,7 @@
             out.println("<select id='" + val+ "_dropdown'; onchange='populateText(\"" + val + "_dropdown\", \"" + val + "\")'>");
             out.println("<option value=\"\">None</option>");
             for(String individual : ontologyClass.getIndividuals()) {
-                out.println("<option value=\"" + individual + "\">" + individual + "</option>");
+                out.println("<option value=" + individual + ">" + individual + "</option>");
             }
             out.println("</select><br/>");
         }

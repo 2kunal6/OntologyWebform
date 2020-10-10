@@ -57,12 +57,13 @@ public class OntologyProcessor {
     void setPredicates(List<Triple> allTriples, List<OntologyClass> ontologyClasses) {
         for(int i=0;i<allTriples.size();i++) {
             Triple triple = allTriples.get(i);
+            System.out.println(triple.getSubject().toString() + " " + triple.getPredicate().toString() + " " + triple.getObject().toString());
             for(int j=0;j<ontologyClasses.size();j++) {
                 OntologyClass ontologyClass = ontologyClasses.get(j);
-                if(ontologyClass.getOntclass().toString().equals(triple.getSubject().toString())) {
+                if(ontologyClass.getOntclass().toString().equals(triple.getSubject().toString()) || ontologyClass.getOntclass().toString().equals(triple.getObject().toString())) {
                     ontologyClass.getTriples().add(triple);
                     if(triple.getPredicate().toString().equals("http://www.w3.org/1999/02/22-rdf-syntax-ns#type") || triple.getPredicate().toString().equals("rdf:type")) {
-                        ontologyClass.getIndividuals().add(triple.getObject().toString());
+                        ontologyClass.getIndividuals().add(triple.getSubject().toString());
                     }
                     break;
                 }
