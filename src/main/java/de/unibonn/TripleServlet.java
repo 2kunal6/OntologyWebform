@@ -46,6 +46,9 @@ public class TripleServlet extends HttpServlet {
             if(ontologyClass.getRestrictions().size()>0) {
                 for(Restriction restriction : ontologyClass.getRestrictions()) {
                     System.out.println(restriction.getOnProperty().toString());
+                    if(restriction.isSomeValuesFromRestriction()) {
+                        System.out.println(restriction.asSomeValuesFromRestriction().getSomeValuesFrom().toString()+"\n***********************\n");
+                    }
                 }
             }
         }
