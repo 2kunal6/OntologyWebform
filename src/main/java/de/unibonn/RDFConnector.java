@@ -84,7 +84,12 @@ public class RDFConnector {
 
     void insertTriple(String subject, String predicate, String object) {
         System.out.println("Inserting triple to FUSEKI*************************************");
-        String query = prefixes + "INSERT DATA { <" + subject + "> <" + predicate + "> '" + object + "' . }";
+        if(object.startsWith("http://")) {
+            object = "<" + object + ">";
+        } else {
+            object = "'" + object + "'";
+        }
+        String query = prefixes + "INSERT DATA { <" + subject + "> <" + predicate + "> " + object + " . }";
         System.out.println(query);
         conn.update(query);
 

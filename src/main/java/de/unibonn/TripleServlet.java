@@ -25,12 +25,10 @@ public class TripleServlet extends HttpServlet {
         RDFConnector rdfConnector = new RDFConnector("isa_rdf_triples", "update");
         RDFConnector rdfConnectorQuery = new RDFConnector("isa_rdf_triples", "query");
 
-
-        System.out.println("INSIDE Triple servlet");
         Map<String, String[]> params = request.getParameterMap();
         for (Map.Entry<String, String[]> entry : params.entrySet()) {
             if(entry.getValue().length!=0 && !entry.getValue()[0].equals("")) {
-                rdfConnector.insertTriple(entry.getKey(), "rdf:type", entry.getValue()[0]);
+                rdfConnector.insertTriple(entry.getKey() + "/" + entry.getValue()[0], "rdf:type", entry.getKey());
             }
         }
 
