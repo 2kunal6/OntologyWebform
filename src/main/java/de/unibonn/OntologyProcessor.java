@@ -27,21 +27,17 @@ import java.io.InputStream;
 import java.util.*;
 
 public class OntologyProcessor {
-    Map<OntClass, List<Restriction>> setClassRestrictions(List<OntologyClass> classes) {
-        Map<OntClass, List<Restriction>> classRestrictions = new HashMap<>();
+    void setClassRestrictions(List<OntologyClass> classes) {
         for(OntologyClass ontologyClass : classes) {
             OntClass ontClass = ontologyClass.getOntclass();
             Iterator<OntClass> superIter = ontClass.listSuperClasses();
-            List<Restriction> restrictions = new ArrayList<>();
             while(superIter.hasNext()) {
                 OntClass superOntClass = superIter.next();
                 if(superOntClass.isRestriction()) {
-                    restrictions.add(superOntClass.asRestriction());
+                    ontologyClass.getRestrictions().add(superOntClass.asRestriction());
                 }
             }
-            classRestrictions.put(ontClass, restrictions);
         }
-        return classRestrictions;
     }
 
     Map<OntClass, List<OntProperty>> getClassAndProperties(List<OntClass> classes) {

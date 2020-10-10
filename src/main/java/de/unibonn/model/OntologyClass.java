@@ -19,6 +19,7 @@ package de.unibonn.model;
 
 import org.apache.jena.graph.Triple;
 import org.apache.jena.ontology.OntClass;
+import org.apache.jena.ontology.Restriction;
 
 import java.util.*;
 
@@ -26,6 +27,15 @@ public class OntologyClass {
     OntClass ontclass;
     List<Triple> triples = new ArrayList<>();
     List<String> individuals = new ArrayList<>();
+    List<Restriction> restrictions = new ArrayList<>();
+
+    public List<Restriction> getRestrictions() {
+        return restrictions;
+    }
+
+    public void setRestrictions(List<Restriction> restrictions) {
+        this.restrictions = restrictions;
+    }
 
     public List<String> getIndividuals() {
         return individuals;

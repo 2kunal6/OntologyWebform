@@ -3,6 +3,7 @@ package de.unibonn;
 import de.unibonn.model.OntologyClass;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntProperty;
+import org.apache.jena.ontology.Restriction;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,6 +41,13 @@ public class TripleServlet extends HttpServlet {
             List<String> propertiesAsString = new ArrayList<>();
             for(OntProperty ontProperty : pair.getValue())propertiesAsString.add(ontProperty.toString());
             classPropertiesAsString.put(pair.getKey().toString(), propertiesAsString);
+        }
+        for(OntologyClass ontologyClass : ontologyClasses) {
+            if(ontologyClass.getRestrictions().size()>0) {
+                for(Restriction restriction : ontologyClass.getRestrictions()) {
+                    System.out.println(restriction.getOnProperty().toString());
+                }
+            }
         }
 
         request.setAttribute("classPropertiesAsString", classPropertiesAsString);
