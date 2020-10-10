@@ -61,7 +61,7 @@ public class OntologyProcessor {
                 OntologyClass ontologyClass = ontologyClasses.get(j);
                 if(ontologyClass.getOntclass().toString().equals(triple.getSubject().toString())) {
                     ontologyClass.getTriples().add(triple);
-                    if(triple.getPredicate().toString().equals("http://www.w3.org/1999/02/22-rdf-syntax-ns#type") || triple.toString().equals("rdf:type")) {
+                    if(triple.getPredicate().toString().equals("http://www.w3.org/1999/02/22-rdf-syntax-ns#type") || triple.getPredicate().toString().equals("rdf:type")) {
                         ontologyClass.getIndividuals().add(triple.getObject().toString());
                     }
                     break;

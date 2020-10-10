@@ -20,6 +20,11 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
     <script src="css/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    <script type="text/javascript">
+        function jsFunction(value, classTextId) {
+              document.getElementById(classTextId).value = this.value;
+        }
+    </script>
     <style>
         table {border-collapse: separate;border-spacing: 50px 0;}
         td {padding: 10px 0;}
@@ -37,6 +42,15 @@
         String val = ontologyClass.getOntclass().toString();
         out.println("<label for=" + val + ">" + val + ":</label>");
         out.print("<input type='text' id='" + val + "' name='" + val + "'><br/>");
+
+        if(ontologyClass.getIndividuals().size()>0) {
+            out.println("<select id='" + val+ "_dropdown'; onchange='populateText(this.value, " + val + ");>");
+            out.println("<option value=''>None</option>");
+            for(String individual : ontologyClass.getIndividuals()) {
+                out.println("<option value='" + individual + "'>" + individual + "</option>");
+            }
+            out.println("</select>");
+        }
     }
     %>
     <input type="submit">
