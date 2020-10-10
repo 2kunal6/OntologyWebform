@@ -32,12 +32,8 @@ public class UploadServlet extends HttpServlet {
 
         List<OntologyClass> ontologyClasses = new ArrayList<>();
         ontologyProcessor.setClasses(fileContent, ontology_url, ontologyClasses);
-
-        //Map<OntClass, List<Restriction>> classRestrictions = ontologyProcessor.getClassRestrictions(classes);
-
-        List<Triple> allTriples = rdfConnectorQuery.getAllTriples();
-
-        ontologyProcessor.setPredicates(allTriples, ontologyClasses);
+        ontologyProcessor.setClassRestrictions(ontologyClasses);
+        ontologyProcessor.setIndividuals(rdfConnectorQuery.getAllTriples(), ontologyClasses);
 
         session.setAttribute("ontologyClasses", ontologyClasses);
 
