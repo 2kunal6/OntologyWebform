@@ -1,10 +1,8 @@
 package de.unibonn;
 
 import de.unibonn.model.OntologyClass;
-import org.apache.jena.graph.Triple;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntProperty;
-import org.apache.jena.ontology.Restriction;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,7 +10,6 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.*;
 import java.util.stream.Collectors;
 

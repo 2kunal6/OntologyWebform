@@ -1,7 +1,6 @@
 package de.unibonn;
 
 import de.unibonn.model.OntologyClass;
-import org.apache.jena.graph.Triple;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

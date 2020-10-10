@@ -18,10 +18,7 @@
 package de.unibonn.model;
 
 import org.apache.jena.graph.Triple;
-import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.OntClass;
-import org.apache.jena.ontology.OntProperty;
-import org.apache.jena.ontology.Restriction;
 
 import java.util.*;
 

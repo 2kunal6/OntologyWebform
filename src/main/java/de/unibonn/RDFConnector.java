@@ -18,13 +18,11 @@
 package de.unibonn;
 
 import org.apache.jena.atlas.iterator.Iter;
-import org.apache.jena.graph.Node;
 import org.apache.jena.graph.Triple;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdfconnection.RDFConnectionFuseki;
 import org.apache.jena.rdfconnection.RDFConnectionRemoteBuilder;
 import org.apache.jena.util.iterator.ExtendedIterator;

@@ -1,10 +1,5 @@
 package de.unibonn;
 
-import org.apache.jena.ontology.OntClass;
-import org.apache.jena.ontology.OntProperty;
-import org.apache.jena.ontology.Restriction;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
