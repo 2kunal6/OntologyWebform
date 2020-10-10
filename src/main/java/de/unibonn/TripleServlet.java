@@ -32,10 +32,12 @@ public class TripleServlet extends HttpServlet {
             }
         }
 
-        Set<OntClass> classes = (Set<OntClass>) session.getAttribute("classes");
+        List<OntologyClass> ontologyClasses = (List<OntologyClass>) session.getAttribute("ontologyClasses");
 
         Map<String, List<String>> classPropertiesAsString = new HashMap<>();
-        Map<OntClass, List<OntProperty>> classAndProperties = ontologyProcessor.getClassAndProperties(classes);
+        Map<OntClass, List<OntProperty>> classAndProperties = ontologyProcessor.getClassAndProperties(ontologyClasses.stream()
+                .map(OntologyClass::getOntclass)
+                .collect(Collectors.toList()));
 
         for (Map.Entry<OntClass, List<OntProperty>> pair : classAndProperties.entrySet()) {
             List<String> propertiesAsString = new ArrayList<>();

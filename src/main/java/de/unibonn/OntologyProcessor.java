@@ -23,6 +23,7 @@ import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntProperty;
 import org.apache.jena.ontology.Restriction;
 
+import java.io.InputStream;
 import java.util.*;
 
 public class OntologyProcessor {
@@ -44,11 +45,9 @@ public class OntologyProcessor {
         return classRestrictions;
     }
 
-    Map<OntClass, List<OntProperty>> getClassAndProperties(Set<OntClass> classes) {
+    Map<OntClass, List<OntProperty>> getClassAndProperties(List<OntClass> classes) {
         Map<OntClass, List<OntProperty>> classAndProperties = new HashMap<>();
-        Iterator<OntClass> iter = classes.iterator();
-        while (iter.hasNext()) {
-            OntClass ontClass = iter.next();
+        for(OntClass ontClass : classes) {
             classAndProperties.put(ontClass, ontClass.listDeclaredProperties().toList());
         }
         return classAndProperties;
@@ -68,6 +67,16 @@ public class OntologyProcessor {
                     break;
                 }
             }
+        }
+    }
+
+    void setClasses(InputStream fileContent, String ontology_url, List<OntologyClass> ontologyClasses) {
+        RDFConnector rc = new RDFConnector("test", "query");
+        Set<OntClass> classes = rc.getClasses(fileContent, ontology_url);
+        for(OntClass ontClass : classes) {
+            OntologyClass ontologyClass = new OntologyClass();
+            ontologyClass.setOntclass(ontClass);
+            ontologyClasses.add(ontologyClass);
         }
     }
 }

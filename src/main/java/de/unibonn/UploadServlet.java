@@ -1,11 +1,7 @@
 package de.unibonn;
 
 import de.unibonn.model.OntologyClass;
-import org.apache.commons.io.IOUtils;
-import org.apache.jena.graph.Node;
 import org.apache.jena.graph.Triple;
-import org.apache.jena.ontology.OntClass;
-import org.apache.jena.ontology.Restriction;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,9 +12,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @WebServlet("/upload")
 @MultipartConfig
@@ -37,26 +30,17 @@ public class UploadServlet extends HttpServlet {
             fileContent = filePart.getInputStream();
         }
 
-        RDFConnector rc = new RDFConnector("test", "query");
-        Set<OntClass> classes = rc.getClasses(fileContent, ontology_url);
-
-        Map<OntClass, List<Restriction>> classRestrictions = ontologyProcessor.getClassRestrictions(classes);
-
         List<OntologyClass> ontologyClasses = new ArrayList<>();
-        for(OntClass ontClass : classes) {
-            OntologyClass ontologyClass = new OntologyClass();
-            ontologyClass.setOntclass(ontClass);
-            ontologyClasses.add(ontologyClass);
-        }
+        ontologyProcessor.setClasses(fileContent, ontology_url, ontologyClasses);
+
+        //Map<OntClass, List<Restriction>> classRestrictions = ontologyProcessor.getClassRestrictions(classes);
+
         List<Triple> allTriples = rdfConnectorQuery.getAllTriples();
 
         ontologyProcessor.setPredicates(allTriples, ontologyClasses);
 
-        session.setAttribute("classes", classes);
+        session.setAttribute("ontologyClasses", ontologyClasses);
 
-        List<String> classList = classes.stream().map(s -> s.toString()).collect(Collectors.toList());
-
-        request.setAttribute("classList", classList);
         request.setAttribute("ontologyClasses", ontologyClasses);
         RequestDispatcher view = request.getRequestDispatcher("webform.jsp");
         view.forward(request, response);
