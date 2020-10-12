@@ -27,7 +27,7 @@ import java.util.*;
 public class OntologyClass {
     OntClass ontclass;
     List<Triple> triples = new ArrayList<>();
-    List<String> individuals = new ArrayList<>();
+    Set<String> individuals = new HashSet<>();
     List<Restriction> restrictions = new ArrayList<>();
     List<OntProperty> properties = new ArrayList<>();
     Map<OntProperty, List<String>> propertyRestrictions = new HashMap<>();
@@ -56,11 +56,11 @@ public class OntologyClass {
         this.restrictions = restrictions;
     }
 
-    public List<String> getIndividuals() {
+    public Set<String> getIndividuals() {
         return individuals;
     }
 
-    public void setIndividuals(List<String> individuals) {
+    public void setIndividuals(Set<String> individuals) {
         this.individuals = individuals;
     }
 

@@ -19,7 +19,6 @@ package de.unibonn;
 
 import de.unibonn.model.OntologyClass;
 import org.apache.jena.graph.Triple;
-import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.Restriction;
 
@@ -79,14 +78,14 @@ public class OntologyProcessor {
                         for(OntologyClass restrictedOntologyClass : ontologyClasses) {
                             if(restrictedOntologyClass.getOntclass().toString().equals(restriction.asSomeValuesFromRestriction().getSomeValuesFrom().toString())) {
                                 ontologyClass.getPropertyRestrictions().put(restriction.asSomeValuesFromRestriction().getOnProperty(),
-                                        restrictedOntologyClass.getIndividuals());
+                                        new ArrayList<String>(restrictedOntologyClass.getIndividuals()));
                             }
                         }
                     } else if(restriction.isAllValuesFromRestriction()) {
                         for(OntologyClass restrictedOntologyClass : ontologyClasses) {
                             if(restrictedOntologyClass.getOntclass().toString().equals(restriction.asAllValuesFromRestriction().getAllValuesFrom().toString())) {
                                 ontologyClass.getPropertyRestrictions().put(restriction.asAllValuesFromRestriction().getOnProperty(),
-                                        restrictedOntologyClass.getIndividuals());
+                                        new ArrayList<String>(restrictedOntologyClass.getIndividuals()));
                             }
                         }
                     }

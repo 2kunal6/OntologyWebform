@@ -41,7 +41,19 @@
         for(OntProperty ontProperty : ontologyClass.getProperties()) {
             String property = ontProperty.toString();
             out.println("<label for=" + property + ">" + property + ":</label>");
-            out.println("<input type='text' id='" + property + "' name='" + val + "_XXX_CLASS_PROPERTY_SEPARATOR_XXX_" + property + "'><br/>");
+            out.println("<input type='text' id='" + property + "' name='" + val + "_XXX_CLASS_PROPERTY_SEPARATOR_XXX_" + property + "'>");
+
+            List<String> propertyRestrictionIndividuals = ontologyClass.getPropertyRestrictions().get(ontProperty);
+            if(propertyRestrictionIndividuals!=null && propertyRestrictionIndividuals.size()>0) {
+                out.println("<select id='" + val+ "_dropdown'; onchange='populateText(\"" + val + "_dropdown\", \"" + val + "\")'>");
+                out.println("<option value=\"\">None</option>");
+                for(String propertyRestrictionIndividual : propertyRestrictionIndividuals) {
+                    out.println("<option value=" + propertyRestrictionIndividual + ">" + propertyRestrictionIndividual + "</option>");
+                }
+                out.println("</select><br/>");
+            }
+
+            out.println("<br/>");
         }
         out.println("<br/><br/>");
     }

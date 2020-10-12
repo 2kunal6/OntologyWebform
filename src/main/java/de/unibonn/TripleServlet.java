@@ -31,12 +31,6 @@ public class TripleServlet extends HttpServlet {
         ontologyProcessor.setIndividuals(rdfConnectorQuery.getAllTriples(), ontologyClasses);
         ontologyProcessor.setRestrictedIndividuals(ontologyClasses);
 
-        for(OntologyClass ontologyClass : ontologyClasses) {
-            for (Map.Entry<OntProperty, List<String>> entry : ontologyClass.getPropertyRestrictions().entrySet()) {
-                System.out.println(ontologyClass.getOntclass().toString() + " " + entry.getKey().toString() + "/" + entry.getValue().toString());
-            }
-        }
-
         request.setAttribute("ontologyClasses", ontologyClasses);
         RequestDispatcher view = request.getRequestDispatcher("triple.jsp");
         view.forward(request, response);

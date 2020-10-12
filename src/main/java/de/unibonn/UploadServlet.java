@@ -1,8 +1,6 @@
 package de.unibonn;
 
 import de.unibonn.model.OntologyClass;
-import org.apache.jena.ontology.OntClass;
-import org.apache.jena.ontology.OntProperty;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @WebServlet("/upload")
 @MultipartConfig
@@ -36,7 +33,7 @@ public class UploadServlet extends HttpServlet {
         ontologyProcessor.setClasses(fileContent, ontology_url, ontologyClasses);
         ontologyProcessor.setClassRestrictions(ontologyClasses);
         ontologyProcessor.setClassAndProperties(ontologyClasses);
-
+        ontologyProcessor.setIndividuals(rdfConnectorQuery.getAllTriples(), ontologyClasses);
 
         session.setAttribute("ontologyClasses", ontologyClasses);
 
