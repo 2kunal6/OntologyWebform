@@ -20,8 +20,6 @@ package de.unibonn;
 import de.unibonn.model.OntologyClass;
 import org.apache.jena.graph.Triple;
 import org.apache.jena.ontology.OntClass;
-import org.apache.jena.ontology.OntProperty;
-import org.apache.jena.ontology.Restriction;
 
 import java.io.InputStream;
 import java.util.*;
@@ -40,12 +38,10 @@ public class OntologyProcessor {
         }
     }
 
-    Map<OntClass, List<OntProperty>> getClassAndProperties(List<OntClass> classes) {
-        Map<OntClass, List<OntProperty>> classAndProperties = new HashMap<>();
-        for(OntClass ontClass : classes) {
-            classAndProperties.put(ontClass, ontClass.listDeclaredProperties().toList());
+    void setClassAndProperties(List<OntologyClass> classes) {
+        for(OntologyClass ontologyClass : classes) {
+            ontologyClass.getProperties().addAll(ontologyClass.getOntclass().listDeclaredProperties().toList());
         }
-        return classAndProperties;
     }
 
     void setIndividuals(List<Triple> allTriples, List<OntologyClass> ontologyClasses) {

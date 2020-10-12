@@ -32,16 +32,6 @@ public class TripleServlet extends HttpServlet {
 
         List<OntologyClass> ontologyClasses = (List<OntologyClass>) session.getAttribute("ontologyClasses");
 
-        Map<String, List<String>> classPropertiesAsString = new HashMap<>();
-        Map<OntClass, List<OntProperty>> classAndProperties = ontologyProcessor.getClassAndProperties(ontologyClasses.stream()
-                .map(OntologyClass::getOntclass)
-                .collect(Collectors.toList()));
-
-        for (Map.Entry<OntClass, List<OntProperty>> pair : classAndProperties.entrySet()) {
-            List<String> propertiesAsString = new ArrayList<>();
-            for(OntProperty ontProperty : pair.getValue())propertiesAsString.add(ontProperty.toString());
-            classPropertiesAsString.put(pair.getKey().toString(), propertiesAsString);
-        }
         for(OntologyClass ontologyClass : ontologyClasses) {
             if(ontologyClass.getRestrictions().size()>0) {
                 for(Restriction restriction : ontologyClass.getRestrictions()) {
@@ -53,7 +43,7 @@ public class TripleServlet extends HttpServlet {
             }
         }
 
-        request.setAttribute("classPropertiesAsString", classPropertiesAsString);
+        request.setAttribute("ontologyClasses", ontologyClasses);
         RequestDispatcher view = request.getRequestDispatcher("triple.jsp");
         view.forward(request, response);
 

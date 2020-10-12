@@ -1,4 +1,6 @@
 <%@ page import ="java.util.*" %>
+<%@ page import ="de.unibonn.model.OntologyClass" %>
+<%@ page import ="org.apache.jena.ontology.OntProperty" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,13 +33,15 @@
 </h1>
 <form method="post" action="storeTriple">
     <%
-    Map<String, List<String>> classPropertiesAsString = (Map<String, List<String>>)request.getAttribute("classPropertiesAsString");
-    for (Map.Entry<String, List<String>> pair : classPropertiesAsString.entrySet()) {
-        out.println("<label for=" + pair.getKey() + ">" + pair.getKey() + ":</label>");
-        out.println("<input type='text' id='" + pair.getKey() + "' name='" + pair.getKey() + "'>");
-        for(String property : pair.getValue()) {
+    List<OntologyClass> result= (List<OntologyClass>) request.getAttribute("ontologyClasses");
+    for(OntologyClass ontologyClass : result) {
+        String val = ontologyClass.getOntclass().toString();
+        out.println("<label for=" + val + ">" + val + ":</label>");
+        out.print("<input type='text' id='" + val + "' name='" + val + "'>");
+        for(OntProperty ontProperty : ontologyClass.getProperties()) {
+            String property = ontProperty.toString();
             out.println("<label for=" + property + ">" + property + ":</label>");
-            out.println("<input type='text' id='" + property + "' name='" + pair.getKey() + "_XXX_CLASS_PROPERTY_SEPARATOR_XXX_" + property + "'><br/>");
+            out.println("<input type='text' id='" + property + "' name='" + val + "_XXX_CLASS_PROPERTY_SEPARATOR_XXX_" + property + "'><br/>");
         }
         out.println("<br/><br/>");
     }
