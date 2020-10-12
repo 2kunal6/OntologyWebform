@@ -1,9 +1,7 @@
 package de.unibonn;
 
 import de.unibonn.model.OntologyClass;
-import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntProperty;
-import org.apache.jena.ontology.Restriction;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @WebServlet("/triple")
 @MultipartConfig
@@ -31,15 +28,12 @@ public class TripleServlet extends HttpServlet {
         }
 
         List<OntologyClass> ontologyClasses = (List<OntologyClass>) session.getAttribute("ontologyClasses");
+        ontologyProcessor.setIndividuals(rdfConnectorQuery.getAllTriples(), ontologyClasses);
+        ontologyProcessor.setRestrictedIndividuals(ontologyClasses);
 
         for(OntologyClass ontologyClass : ontologyClasses) {
-            if(ontologyClass.getRestrictions().size()>0) {
-                for(Restriction restriction : ontologyClass.getRestrictions()) {
-                    System.out.println(restriction.getOnProperty().toString());
-                    if(restriction.isSomeValuesFromRestriction()) {
-                        System.out.println(restriction.asSomeValuesFromRestriction().getSomeValuesFrom().toString()+"\n***********************\n");
-                    }
-                }
+            for (Map.Entry<OntProperty, List<String>> entry : ontologyClass.getPropertyRestrictions().entrySet()) {
+                System.out.println(ontologyClass.getOntclass().toString() + " " + entry.getKey().toString() + "/" + entry.getValue().toString());
             }
         }
 

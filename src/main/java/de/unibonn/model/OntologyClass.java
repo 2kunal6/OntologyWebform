@@ -30,6 +30,15 @@ public class OntologyClass {
     List<String> individuals = new ArrayList<>();
     List<Restriction> restrictions = new ArrayList<>();
     List<OntProperty> properties = new ArrayList<>();
+    Map<OntProperty, List<String>> propertyRestrictions = new HashMap<>();
+
+    public Map<OntProperty, List<String>> getPropertyRestrictions() {
+        return propertyRestrictions;
+    }
+
+    public void setPropertyRestrictions(Map<OntProperty, List<String>> propertyRestrictions) {
+        this.propertyRestrictions = propertyRestrictions;
+    }
 
     public List<OntProperty> getProperties() {
         return properties;
