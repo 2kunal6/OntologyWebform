@@ -31,7 +31,6 @@ public class UploadServlet extends HttpServlet {
 
         List<OntologyClass> ontologyClasses = new ArrayList<>();
         ontologyProcessor.setClasses(fileContent, ontology_url, ontologyClasses);
-        ontologyProcessor.setClassRestrictions(ontologyClasses);
         ontologyProcessor.setClassAndProperties(ontologyClasses);
         ontologyProcessor.setIndividuals(rdfConnectorQuery.getAllTriples(), ontologyClasses);
 

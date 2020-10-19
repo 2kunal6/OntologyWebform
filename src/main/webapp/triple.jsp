@@ -1,5 +1,6 @@
 <%@ page import ="java.util.*" %>
 <%@ page import ="de.unibonn.model.OntologyClass" %>
+<%@ page import ="de.unibonn.model.OntologyClassRestriction" %>
 <%@ page import ="org.apache.jena.ontology.OntProperty" %>
 <!DOCTYPE html>
 <html>
@@ -43,7 +44,14 @@
             out.println("<label for=" + property + ">" + property + ":</label>");
             out.println("<input type='text' id='" + property + "' name='" + val + "_XXX_CLASS_PROPERTY_SEPARATOR_XXX_" + property + "'>");
 
-            List<String> propertyRestrictionIndividuals = ontologyClass.getPropertyRestrictions().get(ontProperty);
+            List<OntologyClassRestriction> ontologyClassRestrictions = ontologyClass.getRestrictions();
+            List<String> propertyRestrictionIndividuals=new ArrayList<String>();
+            for(OntologyClassRestriction ontologyClassRestriction : ontologyClassRestrictions) {
+                if(ontologyClassRestriction.getOntProperty().toString().equals(ontProperty.toString())) {
+                    propertyRestrictionIndividuals = ontologyClassRestriction.getIndividuals();
+                    break;
+                }
+            }
             if(propertyRestrictionIndividuals!=null && propertyRestrictionIndividuals.size()>0) {
                 out.println("<select id='" + val+ "_dropdown'; onchange='populateText(\"" + val + "_dropdown\", \"" + val + "\")'>");
                 out.println("<option value=\"\">None</option>");

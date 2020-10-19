@@ -18,6 +18,7 @@
 package de.unibonn;
 
 import de.unibonn.model.OntologyClass;
+import de.unibonn.model.OntologyClassRestriction;
 import org.apache.jena.graph.Triple;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.Restriction;
@@ -26,18 +27,6 @@ import java.io.InputStream;
 import java.util.*;
 
 public class OntologyProcessor {
-    void setClassRestrictions(List<OntologyClass> classes) {
-        for(OntologyClass ontologyClass : classes) {
-            OntClass ontClass = ontologyClass.getOntclass();
-            Iterator<OntClass> superIter = ontClass.listSuperClasses();
-            while(superIter.hasNext()) {
-                OntClass superOntClass = superIter.next();
-                if(superOntClass.isRestriction()) {
-                    ontologyClass.getRestrictions().add(superOntClass.asRestriction());
-                }
-            }
-        }
-    }
 
     void setClassAndProperties(List<OntologyClass> classes) {
         for(OntologyClass ontologyClass : classes) {
@@ -70,22 +59,33 @@ public class OntologyProcessor {
         }
     }
 
-    void setRestrictedIndividuals(List<OntologyClass> ontologyClasses) {
+    void setRestrictions(List<OntologyClass> ontologyClasses) {
         for(OntologyClass ontologyClass : ontologyClasses) {
+            OntClass ontClass = ontologyClass.getOntclass();
+            Iterator<OntClass> superIter = ontClass.listSuperClasses();
+            while(superIter.hasNext()) {
+                OntClass superOntClass = superIter.next();
+                if(superOntClass.isRestriction()) {
+                    OntologyClassRestriction ontologyClassRestriction = new OntologyClassRestriction();
+                    ontologyClassRestriction.setRestriction(superOntClass.asRestriction());
+                    ontologyClass.getRestrictions().add(ontologyClassRestriction);
+                }
+            }
             if(ontologyClass.getRestrictions().size()>0) {
-                for(Restriction restriction : ontologyClass.getRestrictions()) {
+                for(OntologyClassRestriction ontologyClassRestriction : ontologyClass.getRestrictions()) {
+                    Restriction restriction = ontologyClassRestriction.getRestriction();
                     if(restriction.isSomeValuesFromRestriction()) {
                         for(OntologyClass restrictedOntologyClass : ontologyClasses) {
                             if(restrictedOntologyClass.getOntclass().toString().equals(restriction.asSomeValuesFromRestriction().getSomeValuesFrom().toString())) {
-                                ontologyClass.getPropertyRestrictions().put(restriction.asSomeValuesFromRestriction().getOnProperty(),
-                                        new ArrayList<String>(restrictedOntologyClass.getIndividuals()));
+                                ontologyClassRestriction.setOntProperty(restriction.asSomeValuesFromRestriction().getOnProperty());
+                                ontologyClassRestriction.setIndividuals(new ArrayList<String>(restrictedOntologyClass.getIndividuals()));
                             }
                         }
                     } else if(restriction.isAllValuesFromRestriction()) {
                         for(OntologyClass restrictedOntologyClass : ontologyClasses) {
                             if(restrictedOntologyClass.getOntclass().toString().equals(restriction.asAllValuesFromRestriction().getAllValuesFrom().toString())) {
-                                ontologyClass.getPropertyRestrictions().put(restriction.asAllValuesFromRestriction().getOnProperty(),
-                                        new ArrayList<String>(restrictedOntologyClass.getIndividuals()));
+                                ontologyClassRestriction.setOntProperty(restriction.asAllValuesFromRestriction().getOnProperty());
+                                ontologyClassRestriction.setIndividuals(new ArrayList<String>(restrictedOntologyClass.getIndividuals()));
                             }
                         }
                     }

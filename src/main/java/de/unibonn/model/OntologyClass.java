@@ -28,17 +28,8 @@ public class OntologyClass {
     OntClass ontclass;
     List<Triple> triples = new ArrayList<>();
     Set<String> individuals = new HashSet<>();
-    List<Restriction> restrictions = new ArrayList<>();
+    List<OntologyClassRestriction> restrictions = new ArrayList<>();
     List<OntProperty> properties = new ArrayList<>();
-    Map<OntProperty, List<String>> propertyRestrictions = new HashMap<>();
-
-    public Map<OntProperty, List<String>> getPropertyRestrictions() {
-        return propertyRestrictions;
-    }
-
-    public void setPropertyRestrictions(Map<OntProperty, List<String>> propertyRestrictions) {
-        this.propertyRestrictions = propertyRestrictions;
-    }
 
     public List<OntProperty> getProperties() {
         return properties;
@@ -48,11 +39,11 @@ public class OntologyClass {
         this.properties = properties;
     }
 
-    public List<Restriction> getRestrictions() {
+    public List<OntologyClassRestriction> getRestrictions() {
         return restrictions;
     }
 
-    public void setRestrictions(List<Restriction> restrictions) {
+    public void setRestrictions(List<OntologyClassRestriction> restrictions) {
         this.restrictions = restrictions;
     }
 

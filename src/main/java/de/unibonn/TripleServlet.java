@@ -1,7 +1,6 @@
 package de.unibonn;
 
 import de.unibonn.model.OntologyClass;
-import org.apache.jena.ontology.OntProperty;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,7 +28,7 @@ public class TripleServlet extends HttpServlet {
 
         List<OntologyClass> ontologyClasses = (List<OntologyClass>) session.getAttribute("ontologyClasses");
         ontologyProcessor.setIndividuals(rdfConnectorQuery.getAllTriples(), ontologyClasses);
-        ontologyProcessor.setRestrictedIndividuals(ontologyClasses);
+        ontologyProcessor.setRestrictions(ontologyClasses);
 
         request.setAttribute("ontologyClasses", ontologyClasses);
         RequestDispatcher view = request.getRequestDispatcher("triple.jsp");
