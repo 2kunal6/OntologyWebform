@@ -79,7 +79,7 @@ public class OntologyProcessor {
                             if(restrictedOntologyClass.getOntclass().toString().equals(restriction.asSomeValuesFromRestriction().getSomeValuesFrom().toString())) {
                                 ontologyClassRestriction.setOntProperty(restriction.asSomeValuesFromRestriction().getOnProperty());
                                 ontologyClassRestriction.setIndividuals(new ArrayList<String>(restrictedOntologyClass.getIndividuals()));
-                                ontologyClassRestriction.setDescription("AT LEAST ONE value of the command separated values must be from dropdown");
+                                ontologyClassRestriction.setDescription("AT LEAST ONE value of the command separated values must be from dropdown (Create individuals to see dropdown)");
                             }
                         }
                     } else if(restriction.isAllValuesFromRestriction()) {
@@ -87,7 +87,7 @@ public class OntologyProcessor {
                             if(restrictedOntologyClass.getOntclass().toString().equals(restriction.asAllValuesFromRestriction().getAllValuesFrom().toString())) {
                                 ontologyClassRestriction.setOntProperty(restriction.asAllValuesFromRestriction().getOnProperty());
                                 ontologyClassRestriction.setIndividuals(new ArrayList<String>(restrictedOntologyClass.getIndividuals()));
-                                ontologyClassRestriction.setDescription("ALL value of the command separated values must be from dropdown");       }
+                                ontologyClassRestriction.setDescription("ALL value of the command separated values must be from dropdown (Create individuals to see dropdown)");       }
                         }
                     }
                 }
