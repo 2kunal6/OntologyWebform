@@ -26,6 +26,15 @@ public class OntologyClassRestriction {
     Restriction restriction;
     OntProperty ontProperty;
     List<String> individuals;
+    String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public Restriction getRestriction() {
         return restriction;

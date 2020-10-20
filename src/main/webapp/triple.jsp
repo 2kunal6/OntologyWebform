@@ -49,9 +49,11 @@
 
             List<OntologyClassRestriction> ontologyClassRestrictions = ontologyClass.getRestrictions();
             List<String> propertyRestrictionIndividuals=new ArrayList<String>();
+            String description = "";
             for(OntologyClassRestriction ontologyClassRestriction : ontologyClassRestrictions) {
                 if(ontologyClassRestriction.getOntProperty()!=null && ontologyClassRestriction.getOntProperty().toString().equals(property)) {
                     propertyRestrictionIndividuals = ontologyClassRestriction.getIndividuals();
+                    description = ontologyClassRestriction.getDescription();
                     break;
                 }
             }
@@ -64,7 +66,7 @@
                 out.println("</select><br/>");
             }
 
-            out.println("<br/>");
+            out.println("<p style='color:#931A00;'>" + description + "</p><br/>");
         }
         out.println("<br/><br/>");
     }
