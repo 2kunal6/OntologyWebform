@@ -34,6 +34,9 @@
 </h1>
 <form method="post" action="storeTriple">
     <%
+    String validation = (String) request.getAttribute("validation");
+    if(validation!=null && !validation.equals(""))out.println(validation);
+
     List<OntologyClass> result= (List<OntologyClass>) request.getAttribute("ontologyClasses");
     for(OntologyClass ontologyClass : result) {
         String val = ontologyClass.getOntclass().toString();
@@ -47,7 +50,7 @@
             List<OntologyClassRestriction> ontologyClassRestrictions = ontologyClass.getRestrictions();
             List<String> propertyRestrictionIndividuals=new ArrayList<String>();
             for(OntologyClassRestriction ontologyClassRestriction : ontologyClassRestrictions) {
-                if(ontologyClassRestriction.getOntProperty().toString().equals(ontProperty.toString())) {
+                if(ontologyClassRestriction.getOntProperty()!=null && ontologyClassRestriction.getOntProperty().toString().equals(property)) {
                     propertyRestrictionIndividuals = ontologyClassRestriction.getIndividuals();
                     break;
                 }
