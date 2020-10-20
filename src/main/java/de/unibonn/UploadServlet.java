@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,17 +21,19 @@ public class UploadServlet extends HttpServlet {
         HttpSession session = request.getSession();
         OntologyProcessor ontologyProcessor = new OntologyProcessor();
         RDFConnector rdfConnectorQuery = new RDFConnector("isa_rdf_triples", "query");
-
+        String fileName = "";
         String ontology_url = request.getParameter("ontology_url");
 
         InputStream fileContent = null;
         if(ontology_url==null || ontology_url.equals("")) {
             Part filePart = request.getPart("file");
+            fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            System.out.println("FILENAME : " + fileName);
             fileContent = filePart.getInputStream();
         }
 
         List<OntologyClass> ontologyClasses = new ArrayList<>();
-        ontologyProcessor.setClasses(fileContent, ontology_url, ontologyClasses);
+        ontologyProcessor.setClasses(fileContent, ontology_url, ontologyClasses, fileName);
         ontologyProcessor.setClassAndProperties(ontologyClasses);
         ontologyProcessor.setIndividuals(rdfConnectorQuery.getAllTriples(), ontologyClasses);
 

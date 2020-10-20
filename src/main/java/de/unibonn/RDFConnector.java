@@ -67,11 +67,14 @@ public class RDFConnector {
 
     }
 
-    Set<OntClass> getClasses(InputStream fileContent, String ontology_url) {
+    Set<OntClass> getClasses(InputStream fileContent, String fileName, String ontology_url) {
         OntModel model = ModelFactory.createOntologyModel();
-        if(ontology_url==null || ontology_url.equals(""))model.read(fileContent, "");
+        if(ontology_url==null || ontology_url.equals("")) {
+            if(fileName.toLowerCase().endsWith(".ttl"))model.read(fileContent, null, "TTL");
+            else model.read(fileContent, "");
+        }
         else {
-            if(ontology_url.endsWith(".ttl"))model.read(ontology_url,null,"TTL");
+            if(ontology_url.toLowerCase().endsWith(".ttl"))model.read(ontology_url,null,"TTL");
             else model.read(ontology_url);
         }
 
