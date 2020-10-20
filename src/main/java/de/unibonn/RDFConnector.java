@@ -27,6 +27,7 @@ import org.apache.jena.rdfconnection.RDFConnectionFuseki;
 import org.apache.jena.rdfconnection.RDFConnectionRemoteBuilder;
 import org.apache.jena.util.iterator.ExtendedIterator;
 
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.*;
 
@@ -69,7 +70,10 @@ public class RDFConnector {
     Set<OntClass> getClasses(InputStream fileContent, String ontology_url) {
         OntModel model = ModelFactory.createOntologyModel();
         if(ontology_url==null || ontology_url.equals(""))model.read(fileContent, "");
-        else model.read(ontology_url);
+        else {
+            if(ontology_url.endsWith(".ttl"))model.read(ontology_url,null,"TTL");
+            else model.read(ontology_url);
+        }
 
         ExtendedIterator<OntClass> iter = model.listClasses();
 
