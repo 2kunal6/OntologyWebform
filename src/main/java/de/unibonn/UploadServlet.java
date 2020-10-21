@@ -27,7 +27,7 @@ public class UploadServlet extends HttpServlet {
         InputStream fileContent = null;
         if(ontology_url==null || ontology_url.equals("")) {
             Part filePart = request.getPart("file");
-            fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            fileName = extractFileName(filePart);
             System.out.println("FILENAME : " + fileName);
             fileContent = filePart.getInputStream();
         }
@@ -42,5 +42,15 @@ public class UploadServlet extends HttpServlet {
         request.setAttribute("ontologyClasses", ontologyClasses);
         RequestDispatcher view = request.getRequestDispatcher("webform.jsp");
         view.forward(request, response);
+    }
+    private String extractFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length()-1);
+            }
+        }
+        return "";
     }
 }

@@ -74,6 +74,7 @@ public class OntologyProcessor {
             if(ontologyClass.getRestrictions().size()>0) {
                 for(OntologyClassRestriction ontologyClassRestriction : ontologyClass.getRestrictions()) {
                     Restriction restriction = ontologyClassRestriction.getRestriction();
+                    //if(ontClass.toString().contains("protocol"))System.out.println(restriction.asCardinalityRestriction().);
                     if(restriction.isSomeValuesFromRestriction()) {
                         setSomeValuesFromRestriction(ontologyClasses, ontologyClassRestriction, restriction);
                     } else if(restriction.isAllValuesFromRestriction()) {
