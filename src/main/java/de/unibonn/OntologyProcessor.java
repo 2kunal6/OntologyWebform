@@ -75,23 +75,30 @@ public class OntologyProcessor {
                 for(OntologyClassRestriction ontologyClassRestriction : ontologyClass.getRestrictions()) {
                     Restriction restriction = ontologyClassRestriction.getRestriction();
                     if(restriction.isSomeValuesFromRestriction()) {
-                        for(OntologyClass restrictedOntologyClass : ontologyClasses) {
-                            if(restrictedOntologyClass.getOntclass().toString().equals(restriction.asSomeValuesFromRestriction().getSomeValuesFrom().toString())) {
-                                ontologyClassRestriction.setOntProperty(restriction.asSomeValuesFromRestriction().getOnProperty());
-                                ontologyClassRestriction.setIndividuals(new ArrayList<String>(restrictedOntologyClass.getIndividuals()));
-                                ontologyClassRestriction.setDescription("AT LEAST ONE value of the command separated values must be from dropdown (Create individuals to see dropdown)");
-                            }
-                        }
+                        setSomeValuesFromRestriction(ontologyClasses, ontologyClassRestriction, restriction);
                     } else if(restriction.isAllValuesFromRestriction()) {
-                        for(OntologyClass restrictedOntologyClass : ontologyClasses) {
-                            if(restrictedOntologyClass.getOntclass().toString().equals(restriction.asAllValuesFromRestriction().getAllValuesFrom().toString())) {
-                                ontologyClassRestriction.setOntProperty(restriction.asAllValuesFromRestriction().getOnProperty());
-                                ontologyClassRestriction.setIndividuals(new ArrayList<String>(restrictedOntologyClass.getIndividuals()));
-                                ontologyClassRestriction.setDescription("ALL value of the command separated values must be from dropdown (Create individuals to see dropdown)");       }
-                        }
+                        setAllValuesFromRestriction(ontologyClasses, ontologyClassRestriction, restriction);
                     }
                 }
             }
+        }
+    }
+    void setSomeValuesFromRestriction(List<OntologyClass> ontologyClasses, OntologyClassRestriction ontologyClassRestriction, Restriction restriction) {
+        for(OntologyClass restrictedOntologyClass : ontologyClasses) {
+            if(restrictedOntologyClass.getOntclass().toString().equals(restriction.asSomeValuesFromRestriction().getSomeValuesFrom().toString())) {
+                ontologyClassRestriction.setOntProperty(restriction.asSomeValuesFromRestriction().getOnProperty());
+                ontologyClassRestriction.setIndividuals(new ArrayList<String>(restrictedOntologyClass.getIndividuals()));
+                ontologyClassRestriction.setDescription("AT LEAST ONE value of the command separated values must be from dropdown (Create individuals to see dropdown)");
+            }
+        }
+    }
+
+    void setAllValuesFromRestriction(List<OntologyClass> ontologyClasses, OntologyClassRestriction ontologyClassRestriction, Restriction restriction) {
+        for(OntologyClass restrictedOntologyClass : ontologyClasses) {
+            if(restrictedOntologyClass.getOntclass().toString().equals(restriction.asAllValuesFromRestriction().getAllValuesFrom().toString())) {
+                ontologyClassRestriction.setOntProperty(restriction.asAllValuesFromRestriction().getOnProperty());
+                ontologyClassRestriction.setIndividuals(new ArrayList<String>(restrictedOntologyClass.getIndividuals()));
+                ontologyClassRestriction.setDescription("ALL value of the command separated values must be from dropdown (Create individuals to see dropdown)");       }
         }
     }
 }
