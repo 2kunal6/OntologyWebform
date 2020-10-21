@@ -35,41 +35,54 @@ public class TripleValidator {
                     for(OntologyClassRestriction ontologyClassRestriction : ontologyClass.getRestrictions()) {
                         if(!ontologyClassRestriction.getOntProperty().toString().equals(keySplit[1]))continue;
                         Restriction restriction = ontologyClassRestriction.getRestriction();
-                        if(restriction.isSomeValuesFromRestriction()) {
-                            boolean isSomeValuesFrom=false;
-                            for(String individual : individuals) {
-                                for(String allowedIndividual : ontologyClassRestriction.getIndividuals()) {
-                                    if(individual.equals(allowedIndividual)) {
-                                        isSomeValuesFrom=true;
-                                        break;
-                                    }
-                                }
-                            }
-                            if(isSomeValuesFrom==false) {
-                                validation+=("For class " + keySplit[0] + " and property " + keySplit[1] + " at least one value must be from the dropdown.\n");
-                            }
-                        } else if(restriction.isAllValuesFromRestriction()) {
-                            boolean isAllValuesFrom=true;
-                            for(String individual : individuals) {
-                                boolean found=false;
-                                for(String allowedIndividual : ontologyClassRestriction.getIndividuals()) {
-                                    if(individual.equals(allowedIndividual)) {
-                                        found=true;
-                                        break;
-                                    }
-                                }
-                                if(found==false) {
-                                    isAllValuesFrom=false;
-                                    break;
-                                }
-                            }
-                            if(isAllValuesFrom==false) {
-                                validation+=("For class " + keySplit[0] + " and property " + keySplit[1] + " all values must be from the dropdown.\n");
-                            }
-                        }
+                        validation+=validateSomeValuesFromRestriction(restriction, individuals, ontologyClassRestriction, keySplit);
+                        validation+=validateAllValuesFromRestriction(restriction, individuals, ontologyClassRestriction, keySplit);
                     }
                 }
             }
+        }
+        return validation;
+    }
+
+    String validateSomeValuesFromRestriction(Restriction restriction, List<String> individuals, OntologyClassRestriction ontologyClassRestriction, String[] keySplit) {
+        if(!restriction.isSomeValuesFromRestriction())return "";
+
+        String validation="";
+        boolean isSomeValuesFrom=false;
+        for(String individual : individuals) {
+            for(String allowedIndividual : ontologyClassRestriction.getIndividuals()) {
+                if(individual.equals(allowedIndividual)) {
+                    isSomeValuesFrom=true;
+                    break;
+                }
+            }
+        }
+        if(isSomeValuesFrom==false) {
+            validation+=("For class " + keySplit[0] + " and property " + keySplit[1] + " at least one value must be from the dropdown.\n");
+        }
+        return validation;
+    }
+    String validateAllValuesFromRestriction(Restriction restriction, List<String> individuals, OntologyClassRestriction ontologyClassRestriction, String[] keySplit) {
+        if(!restriction.isAllValuesFromRestriction())return "";
+
+        String validation="";
+
+        boolean isAllValuesFrom=true;
+        for(String individual : individuals) {
+            boolean found=false;
+            for(String allowedIndividual : ontologyClassRestriction.getIndividuals()) {
+                if(individual.equals(allowedIndividual)) {
+                    found=true;
+                    break;
+                }
+            }
+            if(found==false) {
+                isAllValuesFrom=false;
+                break;
+            }
+        }
+        if(isAllValuesFrom==false) {
+            validation+=("For class " + keySplit[0] + " and property " + keySplit[1] + " all values must be from the dropdown.\n");
         }
         return validation;
     }
