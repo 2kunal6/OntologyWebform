@@ -81,7 +81,7 @@ public class RDFConnector {
             else model.read(ontology_url);
         }
 
-        ExtendedIterator<OntClass> iter = model.listClasses();
+        ExtendedIterator<OntClass> iter = model.listNamedClasses();
 
         Set<OntClass> classSet = new HashSet<>();
         while ( iter.hasNext()){
