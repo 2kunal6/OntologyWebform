@@ -17,20 +17,30 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
     <script src="css/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    <style>
+        p{display:inline-block;}
+        form{align:"center";}
+    </style>
 </head>
 <body>
 <center>
-    <h1>
-        Please upload or provide link to your Ontology
-    </h1>
+    <br/><br/><br/>
+    <h1>Ontology Information</h1>
+    <br/><br/><br/>
+    <p>
+        Please provide link to your Ontology (Example https://raw.githubusercontent.com/ISA-tools/linkedISA-ontologies/master/isaterms.owl)
+    </p>
+    <br/>
     <form method="post" action="upload">
-        <input type="text" name="ontology_url" />
+        <input type="text" name="ontology_url" size="50" /><br/><br/>
         <input type="submit">
     </form>
-
+    <br/><br/>
+    <p style="font-size=40px;">OR</p>
+    <br/><br/>
     <form action="upload" method="post" enctype="multipart/form-data">
-        <input type="text" name="description" />
-        <input type="file" name="file" />
+        <input type="text" name="description" style="display:none;" />
+        <input type="file" name="file" style="padding-left:170px;" /><br/><br/>
         <input type="submit" />
     </form>
 </center>
