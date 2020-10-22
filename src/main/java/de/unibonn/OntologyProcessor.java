@@ -74,11 +74,16 @@ public class OntologyProcessor {
             if(ontologyClass.getRestrictions().size()>0) {
                 for(OntologyClassRestriction ontologyClassRestriction : ontologyClass.getRestrictions()) {
                     Restriction restriction = ontologyClassRestriction.getRestriction();
-                    //if(ontClass.toString().contains("protocol"))System.out.println(restriction.asCardinalityRestriction().);
                     if(restriction.isSomeValuesFromRestriction()) {
                         setSomeValuesFromRestriction(ontologyClasses, ontologyClassRestriction, restriction);
                     } else if(restriction.isAllValuesFromRestriction()) {
                         setAllValuesFromRestriction(ontologyClasses, ontologyClassRestriction, restriction);
+                    } else if(restriction.isCardinalityRestriction()) {
+                        setCardinalityRestriction(ontologyClassRestriction, restriction);
+                    } else if(restriction.isMinCardinalityRestriction()) {
+                        setMinCardinalityRestriction(ontologyClassRestriction, restriction);
+                    } else if(restriction.isMaxCardinalityRestriction()) {
+                        setMaxCardinalityRestriction(ontologyClassRestriction, restriction);
                     }
                 }
             }
@@ -101,5 +106,20 @@ public class OntologyProcessor {
                 ontologyClassRestriction.setIndividuals(new ArrayList<String>(restrictedOntologyClass.getIndividuals()));
                 ontologyClassRestriction.setDescription("ALL value of the command separated values must be from dropdown (Create individuals to see dropdown)");       }
         }
+    }
+    void setCardinalityRestriction(OntologyClassRestriction ontologyClassRestriction, Restriction restriction) {
+       ontologyClassRestriction.setOntProperty(restriction.asCardinalityRestriction().getOnProperty());
+       ontologyClassRestriction.setCardinality(restriction.asCardinalityRestriction().getCardinality());
+       ontologyClassRestriction.setDescription("EXACTLY " + restriction.asCardinalityRestriction().getCardinality() + " value(s) required here.");
+    }
+    void setMinCardinalityRestriction(OntologyClassRestriction ontologyClassRestriction, Restriction restriction) {
+        ontologyClassRestriction.setOntProperty(restriction.asMinCardinalityRestriction().getOnProperty());
+        ontologyClassRestriction.setMinCardinality(restriction.asMinCardinalityRestriction().getMinCardinality());
+        ontologyClassRestriction.setDescription("AT LEAST " + restriction.asMinCardinalityRestriction().getMinCardinality() + " value(s) required here.");
+    }
+    void setMaxCardinalityRestriction(OntologyClassRestriction ontologyClassRestriction, Restriction restriction) {
+        ontologyClassRestriction.setOntProperty(restriction.asMaxCardinalityRestriction().getOnProperty());
+        ontologyClassRestriction.setMaxCardinality(restriction.asMaxCardinalityRestriction().getMaxCardinality());
+        ontologyClassRestriction.setDescription("AT MOST " + restriction.asMaxCardinalityRestriction().getMaxCardinality() + " value(s) required here.");
     }
 }
