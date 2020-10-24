@@ -22,7 +22,9 @@ public class TripleServlet extends HttpServlet {
         Map<String, String[]> params = request.getParameterMap();
         for (Map.Entry<String, String[]> entry : params.entrySet()) {
             if(entry.getValue().length!=0 && !entry.getValue()[0].equals("")) {
-                rdfConnector.insertTriple(entry.getKey() + "/" + entry.getValue()[0], "rdf:type", entry.getKey());
+                for(String ind : Arrays.asList((entry.getValue()[0]).split(","))) {
+                    rdfConnector.insertTriple(entry.getKey() + "/" + ind.trim(), "rdf:type", entry.getKey());
+                }
             }
         }
 
