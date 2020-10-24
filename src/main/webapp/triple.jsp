@@ -42,15 +42,18 @@
     List<OntologyClass> result= (List<OntologyClass>) request.getAttribute("ontologyClasses");
     for(OntologyClass ontologyClass : result) {
         String val = ontologyClass.getOntclass().toString();
-        out.println("<table><tr><th>");
+        out.println("<table><tr><th>Subject</th><th>Predicate</th><th>Object</th><th>Suggestions</th></tr>");
+        out.println("<tr><td>");
         out.println("<label for=" + val + ">" + val + ":</label>");
         out.print("<input type='text' id='" + val + "' name='" + val + "'>");
-        out.println("</th><th>[Predicate Object Suggestions]</th></tr>");
+        out.println("</td><td></td><td></td><td></td>");
         for(OntProperty ontProperty : ontologyClass.getProperties()) {
             out.println("<tr><td></td><td>");
             String property = ontProperty.toString();
             out.println("<label for=" + property + ">" + property + ":</label>");
+            out.println("</td><td>");
             out.println("<input type='text' id='" + property + "' name='" + val + "_XXX_CLASS_PROPERTY_SEPARATOR_XXX_" + property + "'>");
+            out.println("</td><td>");
 
             List<OntologyClassRestriction> ontologyClassRestrictions = ontologyClass.getRestrictions();
             List<String> propertyRestrictionIndividuals=new ArrayList<String>();
