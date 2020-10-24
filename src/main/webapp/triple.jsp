@@ -29,9 +29,12 @@
 </head>
 <body>
 <center>
-<h1>
-
-</h1>
+<br/><br/><br/>
+    <h1>Triples</h1>
+    <p style="font-size:12px;">Please specify the objects as a comma seprated list for the corresponding class and property in the text boxes.</p>
+    <p style="font-size:12px;margin-top:-10px;">If objects must have some property then those warnings are displayed in red.</p>
+    <p>--------------------------------------------------------------------------------------------------------------------------------</p>
+    <br/><br/><br/>
 <form method="post" action="storeTriple">
     <%
     String validation = (String) request.getAttribute("validation");
@@ -71,7 +74,9 @@
         out.println("<br/><br/>");
     }
     %>
+    <br/><br/>
     <input type="submit">
+    <br/><br/>
 </form>
 </body>
 </html>

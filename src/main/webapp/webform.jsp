@@ -34,8 +34,8 @@
     <center>
     <br/><br/><br/>
     <h1>Individuals</h1>
-    <p style="font-size:12px;">Please specify an individual or comma-separated individuals in text boxes for corresponding classes</p>
-    <p style="font-size:12px;margin-top:-10px;">Please note that you need to create individuals in this page to use them to create relations in the next page</p>
+    <p style="font-size:12px;">Please specify an individual or comma-separated individuals in text boxes for corresponding classes.</p>
+    <p style="font-size:12px;margin-top:-10px;">Please note that you need to create individuals in this page to use them to create relations in the next page.</p>
     <p>--------------------------------------------------------------------------------------------------------------------------------</p>
     <br/><br/><br/>
 <form method="post" action="triple">
@@ -57,7 +57,9 @@
         out.println("<br/>");
     }
     %>
+    <br/><br/>
     <input type="submit">
+    <br/><br/>
 </form>
 </body>
 </html>
