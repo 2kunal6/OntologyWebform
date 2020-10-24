@@ -52,9 +52,9 @@
             for(String individual : ontologyClass.getIndividuals()) {
                 out.println("<option value=" + individual + ">" + individual + "</option>");
             }
-            out.println("</select><br/>");
+            out.println("</select>");
         }
-        out.println("<br/>");
+        out.println("<br/><br/>");
     }
     %>
     <br/><br/>

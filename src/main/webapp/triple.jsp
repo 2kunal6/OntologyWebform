@@ -23,15 +23,14 @@
 
     <script src="css/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
     <style>
-        table {border-collapse: separate;border-spacing: 50px 0;}
-        td {padding: 10px 0;}
+        table, th, td {border: 1px solid black;border-collapse: collapse;}
     </style>
 </head>
 <body>
 <center>
 <br/><br/><br/>
     <h1>Triples</h1>
-    <p style="font-size:12px;">Please specify the objects as a comma seprated list for the corresponding class and property in the text boxes.</p>
+    <p style="font-size:12px;">Please specify the objects as a comma separated list for the corresponding class and property in the text boxes.</p>
     <p style="font-size:12px;margin-top:-10px;">If objects must have some property then those warnings are displayed in red.</p>
     <p>--------------------------------------------------------------------------------------------------------------------------------</p>
     <br/><br/><br/>
@@ -43,9 +42,12 @@
     List<OntologyClass> result= (List<OntologyClass>) request.getAttribute("ontologyClasses");
     for(OntologyClass ontologyClass : result) {
         String val = ontologyClass.getOntclass().toString();
+        out.println("<table><tr><th>");
         out.println("<label for=" + val + ">" + val + ":</label>");
         out.print("<input type='text' id='" + val + "' name='" + val + "'>");
+        out.println("</th><th>[Predicate Object Suggestions]</th></tr>");
         for(OntProperty ontProperty : ontologyClass.getProperties()) {
+            out.println("<tr><td></td><td>");
             String property = ontProperty.toString();
             out.println("<label for=" + property + ">" + property + ":</label>");
             out.println("<input type='text' id='" + property + "' name='" + val + "_XXX_CLASS_PROPERTY_SEPARATOR_XXX_" + property + "'>");
@@ -66,11 +68,13 @@
                 for(String propertyRestrictionIndividual : propertyRestrictionIndividuals) {
                     out.println("<option value=" + propertyRestrictionIndividual + ">" + propertyRestrictionIndividual + "</option>");
                 }
-                out.println("</select><br/>");
+                out.println("</select>");
             }
 
-            out.println("<p style='color:#931A00;'>" + description + "</p><br/>");
+            out.println("<p style='color:#931A00;'>" + description + "</p>");
+            out.println("</tr></td>");
         }
+        out.println("</table>");
         out.println("<br/><br/>");
     }
     %>
