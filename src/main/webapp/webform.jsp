@@ -26,8 +26,7 @@
         }
     </script>
     <style>
-        table {border-collapse: separate;border-spacing: 50px 0;}
-        td {padding: 10px 0;}
+        table, th, td {border: 1px solid black;border-collapse: collapse;}
     </style>
 </head>
 <body>
@@ -41,10 +40,14 @@
 <form method="post" action="triple">
     <%
     List<OntologyClass> result= (List<OntologyClass>) request.getAttribute("ontologyClasses");
+    out.println("<table><tr><th>CLASS</th><th>INDIVIDUALS</th><th>SUGGESTIONS</th></tr>");
     for(OntologyClass ontologyClass : result) {
+        out.println("<tr><td>");
         String val = ontologyClass.getOntclass().toString();
         out.println("<label for=" + val + ">" + val + ":</label>");
+        out.println("</td><td>");
         out.print("<input type='text' id='" + val + "' name='" + val + "'>");
+        out.println("</td><td>");
 
         if(ontologyClass.getIndividuals().size()>0) {
             out.println("<select id='" + val+ "_dropdown'; onchange='populateText(\"" + val + "_dropdown\", \"" + val + "\")'>");
@@ -54,8 +57,9 @@
             }
             out.println("</select>");
         }
-        out.println("<br/><br/>");
+        out.println("</td></tr>");
     }
+    out.println("</table>");
     %>
     <br/><br/>
     <input type="submit">

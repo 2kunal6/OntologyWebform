@@ -72,7 +72,7 @@
             }
 
             out.println("<p style='color:#931A00;'>" + description + "</p>");
-            out.println("</tr></td>");
+            out.println("</td></tr>");
         }
         out.println("</table>");
         out.println("<br/><br/>");
