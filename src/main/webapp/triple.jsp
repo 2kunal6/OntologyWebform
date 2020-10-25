@@ -22,6 +22,12 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
     <script src="css/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    <script type="text/javascript">
+        function populateText(selectId, classTextId) {
+            var e = document.getElementById(selectId);
+            document.getElementById(classTextId).value = e.options[e.selectedIndex].text;
+        }
+    </script>
     <style>
         table, th, td {border: 1px solid black;border-collapse: collapse;}
     </style>
@@ -46,6 +52,14 @@
         out.println("<tr><td>");
         out.println("<label for=" + val + ">" + val + ":</label>");
         out.print("<input type='text' id='" + val + "' name='" + val + "'>");
+        if(ontologyClass.getIndividuals().size()>0) {
+            out.println("<select id='" + val+ "_dropdown'; onchange='populateText(\"" + val + "_dropdown\", \"" + val + "\")'>");
+            out.println("<option value=\"\">None</option>");
+            for(String individual : ontologyClass.getIndividuals()) {
+                out.println("<option value=" + individual + ">" + individual + "</option>");
+            }
+            out.println("</select>");
+        }
         out.println("</td><td></td><td></td><td></td>");
         for(OntProperty ontProperty : ontologyClass.getProperties()) {
             out.println("<tr><td></td><td>");
