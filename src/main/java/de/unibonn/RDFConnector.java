@@ -40,13 +40,7 @@ public class RDFConnector {
         conn = (RDFConnectionFuseki)builder.build();
     }
 
-    String prefixes = "prefix :      <http://www.isa-tools.org/owl/isa.owl#> \n" +
-            "prefix isaterms: <http://purl.org/isaterms/> \n" +
-            "prefix terms: <http://purl.org/dc/terms/> \n" +
-            "prefix owl:   <http://www.w3.org/2002/07/owl#> \n" +
-            "prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n" +
-            "prefix xsd:   <http://www.w3.org/2001/XMLSchema#> \n" +
-            "prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> ";
+    String prefixes = "";
 
     List<Triple> getAllTriples() {
 
@@ -61,7 +55,6 @@ public class RDFConnector {
             }
         });
 
-        //for(Node n : results)System.out.println("THIS : " + n.toString());
         return triples;
 
     }
@@ -87,6 +80,12 @@ public class RDFConnector {
         while ( iter.hasNext()){
             classSet.add(iter.next());
         }
+
+        for (Map.Entry<String, String> entry : model.getNsPrefixMap().entrySet()) {
+            prefixes+=("prefix " + entry.getKey() + ": <" + entry.getValue() + "> \n");
+        }
+        System.out.println(prefixes);
+
         return classSet;
     }
 
