@@ -49,8 +49,7 @@ public class OntologyProcessor {
         }
     }
 
-    void setClasses(InputStream fileContent, String ontology_url, List<OntologyClass> ontologyClasses, String fileName) {
-        RDFConnector rc = new RDFConnector("test", "query");
+    void setClasses(RDFConnector rc, InputStream fileContent, String ontology_url, List<OntologyClass> ontologyClasses, String fileName) {
         Set<OntClass> classes = rc.getClasses(fileContent, fileName, ontology_url);
         for(OntClass ontClass : classes) {
             OntologyClass ontologyClass = new OntologyClass();
