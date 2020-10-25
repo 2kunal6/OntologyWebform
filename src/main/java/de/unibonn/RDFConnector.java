@@ -66,23 +66,28 @@ public class RDFConnector {
     }
 
     Set<OntClass> getClasses(InputStream fileContent, String fileName, String ontology_url) {
-        try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            IOUtils.copy(fileContent, baos);
-            byte[] bytes = baos.toByteArray();
-            fileContent = new ByteArrayInputStream(bytes);
-            fileContent.reset();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         OntModel model = ModelFactory.createOntologyModel();
 
         if(ontology_url==null || ontology_url.equals("")) {
+            try {
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                IOUtils.copy(fileContent, baos);
+                byte[] bytes = baos.toByteArray();
+                fileContent = new ByteArrayInputStream(bytes);
+                fileContent.reset();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             if(fileName.toLowerCase().endsWith(".ttl"))model.read(fileContent, null, "TTL");
             else if(fileName.toLowerCase().endsWith(".rdf") || fileName.toLowerCase().endsWith(".xml"))model.read(fileContent,null,"RDF/XML");
             else if(fileName.toLowerCase().endsWith(".n3"))model.read(fileContent,null,"n3");
             else model.read(fileContent, "");
+            try {
+                fileContent.reset();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            extractFileContent(fileContent);
         }
         else {
             if (ontology_url.toLowerCase().endsWith(".ttl")) model.read(ontology_url, null, "TTL");
@@ -90,7 +95,7 @@ public class RDFConnector {
             else if (ontology_url.toLowerCase().endsWith(".n3")) model.read(ontology_url, null, "n3");
             else model.read(ontology_url);
             try {
-                fileContent = new URL(ontology_url).openStream();
+                extractFileContent(new URL(ontology_url).openStream());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -106,13 +111,6 @@ public class RDFConnector {
         for (Map.Entry<String, String> entry : model.getNsPrefixMap().entrySet()) {
             prefixes+=("prefix " + entry.getKey() + ": <" + entry.getValue() + "> \n");
         }
-        try {
-            fileContent.reset();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        extractFileContent(fileContent);
-
         return classSet;
     }
 
@@ -137,7 +135,11 @@ public class RDFConnector {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(Arrays.asList(fileString.split("\n")));
+        List<String> lines = Arrays.asList(fileString.split("\n"));
+        int i=0;
+        for(i=0;i<lines.size();i++) {
+            if(lines.contains("owl:qualifiedCardinality"))break;
+        }
     }
 }
 

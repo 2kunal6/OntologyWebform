@@ -28,6 +28,15 @@ public class OntologyClassRestriction {
     List<String> individuals;
     String description;
     int cardinality, minCardinality, maxCardinality;
+    QualifiedCardinalityRestriction qualifiedCardinalityRestriction;
+
+    public QualifiedCardinalityRestriction getQualifiedCardinalityRestriction() {
+        return qualifiedCardinalityRestriction;
+    }
+
+    public void setQualifiedCardinalityRestriction(QualifiedCardinalityRestriction qualifiedCardinalityRestriction) {
+        this.qualifiedCardinalityRestriction = qualifiedCardinalityRestriction;
+    }
 
     public int getCardinality() {
         return cardinality;
