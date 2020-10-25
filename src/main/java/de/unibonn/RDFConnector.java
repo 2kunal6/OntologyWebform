@@ -28,9 +28,10 @@ import org.apache.jena.rdfconnection.RDFConnectionFuseki;
 import org.apache.jena.rdfconnection.RDFConnectionRemoteBuilder;
 import org.apache.jena.util.iterator.ExtendedIterator;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -65,6 +66,16 @@ public class RDFConnector {
     }
 
     Set<OntClass> getClasses(InputStream fileContent, String fileName, String ontology_url) {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            IOUtils.copy(fileContent, baos);
+            byte[] bytes = baos.toByteArray();
+            fileContent = new ByteArrayInputStream(bytes);
+            fileContent.reset();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         OntModel model = ModelFactory.createOntologyModel();
 
         if(ontology_url==null || ontology_url.equals("")) {
@@ -75,8 +86,7 @@ public class RDFConnector {
         }
         else {
             if (ontology_url.toLowerCase().endsWith(".ttl")) model.read(ontology_url, null, "TTL");
-            else if (ontology_url.toLowerCase().endsWith(".rdf") || ontology_url.toLowerCase().endsWith(".xml"))
-                model.read(ontology_url, null, "RDF/XML");
+            else if (ontology_url.toLowerCase().endsWith(".rdf") || ontology_url.toLowerCase().endsWith(".xml"))model.read(ontology_url, null, "RDF/XML");
             else if (ontology_url.toLowerCase().endsWith(".n3")) model.read(ontology_url, null, "n3");
             else model.read(ontology_url);
             try {
@@ -85,8 +95,6 @@ public class RDFConnector {
                 e.printStackTrace();
             }
         }
-
-        extractFileContent(fileContent);
 
         ExtendedIterator<OntClass> iter = model.listNamedClasses();
 
@@ -98,6 +106,12 @@ public class RDFConnector {
         for (Map.Entry<String, String> entry : model.getNsPrefixMap().entrySet()) {
             prefixes+=("prefix " + entry.getKey() + ": <" + entry.getValue() + "> \n");
         }
+        try {
+            fileContent.reset();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        extractFileContent(fileContent);
 
         return classSet;
     }
@@ -123,7 +137,7 @@ public class RDFConnector {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(fileString);
+        System.out.println(Arrays.asList(fileString.split("\n")));
     }
 }
 
