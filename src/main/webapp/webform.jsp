@@ -22,7 +22,9 @@
     <script type="text/javascript">
         function populateText(selectId, classTextId) {
             var e = document.getElementById(selectId);
-            document.getElementById(classTextId).value = e.options[e.selectedIndex].text;
+            var textIdVal = document.getElementById(classTextId).value;
+            if(textIdVal)document.getElementById(classTextId).value += (", " + e.options[e.selectedIndex].text);
+            else document.getElementById(classTextId).value = e.options[e.selectedIndex].text;
         }
     </script>
     <style>

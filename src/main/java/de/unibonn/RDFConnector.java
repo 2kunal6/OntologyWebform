@@ -84,7 +84,6 @@ public class RDFConnector {
         for (Map.Entry<String, String> entry : model.getNsPrefixMap().entrySet()) {
             prefixes+=("prefix " + entry.getKey() + ": <" + entry.getValue() + "> \n");
         }
-        System.out.println(prefixes);
 
         return classSet;
     }
