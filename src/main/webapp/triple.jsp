@@ -80,7 +80,7 @@
                 }
             }
             if(propertyRestrictionIndividuals!=null && propertyRestrictionIndividuals.size()>0) {
-                out.println("<select id='" + val+ "_dropdown'; onchange='populateText(\"" + val + "_dropdown\", \"" + val + "\")'>");
+                out.println("<select id='" + val + "_" + property+ "_dropdown'; onchange='populateText(\"" + val + "_" + property + "_dropdown\", \"" + property + "\")'>");
                 out.println("<option value=\"\">None</option>");
                 for(String propertyRestrictionIndividual : propertyRestrictionIndividuals) {
                     out.println("<option value=" + propertyRestrictionIndividual + ">" + propertyRestrictionIndividual + "</option>");
