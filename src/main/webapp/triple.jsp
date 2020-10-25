@@ -30,6 +30,8 @@
     </script>
     <style>
         table, th, td {border: 1px solid black;border-collapse: collapse;}
+        input[type="text"] {width: 500px;}
+        select {width: 500px;}
     </style>
 </head>
 <body>
