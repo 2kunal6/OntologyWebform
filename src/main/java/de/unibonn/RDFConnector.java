@@ -17,6 +17,7 @@
  */
 package de.unibonn;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.jena.atlas.iterator.Iter;
 import org.apache.jena.graph.Triple;
 import org.apache.jena.ontology.OntClass;
@@ -27,7 +28,11 @@ import org.apache.jena.rdfconnection.RDFConnectionFuseki;
 import org.apache.jena.rdfconnection.RDFConnectionRemoteBuilder;
 import org.apache.jena.util.iterator.ExtendedIterator;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /** RDF Connection example */
@@ -61,6 +66,7 @@ public class RDFConnector {
 
     Set<OntClass> getClasses(InputStream fileContent, String fileName, String ontology_url) {
         OntModel model = ModelFactory.createOntologyModel();
+
         if(ontology_url==null || ontology_url.equals("")) {
             if(fileName.toLowerCase().endsWith(".ttl"))model.read(fileContent, null, "TTL");
             else if(fileName.toLowerCase().endsWith(".rdf") || fileName.toLowerCase().endsWith(".xml"))model.read(fileContent,null,"RDF/XML");
@@ -68,11 +74,19 @@ public class RDFConnector {
             else model.read(fileContent, "");
         }
         else {
-            if(ontology_url.toLowerCase().endsWith(".ttl"))model.read(ontology_url,null,"TTL");
-            else if(ontology_url.toLowerCase().endsWith(".rdf") || ontology_url.toLowerCase().endsWith(".xml"))model.read(ontology_url,null,"RDF/XML");
-            else if(ontology_url.toLowerCase().endsWith(".n3"))model.read(ontology_url,null,"n3");
+            if (ontology_url.toLowerCase().endsWith(".ttl")) model.read(ontology_url, null, "TTL");
+            else if (ontology_url.toLowerCase().endsWith(".rdf") || ontology_url.toLowerCase().endsWith(".xml"))
+                model.read(ontology_url, null, "RDF/XML");
+            else if (ontology_url.toLowerCase().endsWith(".n3")) model.read(ontology_url, null, "n3");
             else model.read(ontology_url);
+            try {
+                fileContent = new URL(ontology_url).openStream();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
+        extractFileContent(fileContent);
 
         ExtendedIterator<OntClass> iter = model.listNamedClasses();
 
@@ -100,6 +114,16 @@ public class RDFConnector {
         conn.update(query);
 
         System.out.println("Insert to FUSEKI Finished *************************************");
+    }
+
+    void extractFileContent(InputStream fileContent) {
+        String fileString = "";
+        try {
+            fileString = IOUtils.toString(fileContent, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(fileString);
     }
 }
 
