@@ -24,6 +24,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.graph.Triple;
 import org.apache.jena.ontology.OntClass;
+import org.apache.jena.ontology.OntProperty;
 import org.apache.jena.ontology.Restriction;
 
 import java.io.IOException;
@@ -83,7 +84,17 @@ public class OntologyProcessor {
                     } else if(ontologyClassRestriction.getRestriction().isMaxCardinalityRestriction()) {
                         setMaxCardinalityRestriction(ontologyClassRestriction, ontologyClassRestriction.getRestriction());
                     }
-                    ontologyClass.getRestrictions().add(ontologyClassRestriction);
+                    boolean isQualifiedCardinalityRestriction=false;
+                    for(OntologyClassRestriction presentocr : ontologyClass.getRestrictions()) {
+                        if(presentocr.getOntPropertyString()==null)continue;
+                        OntProperty ocrOntProperty = ontologyClassRestriction.getOntProperty();
+                        if(ocrOntProperty!=null && ocrOntProperty.toString().contains(presentocr.getOntPropertyString())) {
+                            isQualifiedCardinalityRestriction=true;
+                            presentocr.setOntProperty(ontologyClassRestriction.getOntProperty());
+                            break;
+                        }
+                    }
+                    if(isQualifiedCardinalityRestriction==false)ontologyClass.getRestrictions().add(ontologyClassRestriction);
                 }
             }
         }
@@ -147,15 +158,27 @@ public class OntologyProcessor {
         while(!lines.get(lineNum).contains("<owl:onClass"))lineNum--;
         String onClass=StringUtils.substringBetween(lines.get(lineNum), "<owl:onClass", "\"/>");
         onClass = onClass.substring(onClass.lastIndexOf(";")+1);
+
+        while(!lines.get(lineNum).contains("<owl:onProperty"))lineNum--;
+        String onProperty=StringUtils.substringBetween(lines.get(lineNum), "<owl:onProperty", "\"/>");
+        onProperty = onProperty.substring(onProperty.lastIndexOf(";")+1);
+
         while(!lines.get(lineNum).contains("<owl:Class "))lineNum--;
         String owlClass=StringUtils.substringBetween(lines.get(lineNum), "<owl:Class ", "\">");
         owlClass = owlClass.substring(owlClass.lastIndexOf(";")+1);
-        qualifiedCardinalityRestriction.setOnClass(onClass);
+
+        for(OntologyClass ontologyClass : ontologyClasses) {
+            if (ontologyClass.getOntclass().toString().contains(onClass)) {
+                qualifiedCardinalityRestriction.setOnClass(ontologyClass.getOntclass());
+                break;
+            }
+        }
 
         for(OntologyClass ontologyClass : ontologyClasses) {
             if(ontologyClass.getOntclass().toString().contains(owlClass)) {
                 OntologyClassRestriction ontologyClassRestriction = new OntologyClassRestriction();
                 ontologyClassRestriction.setQualifiedCardinalityRestriction(qualifiedCardinalityRestriction);
+                ontologyClassRestriction.setOntPropertyString(onProperty);
                 ontologyClass.getRestrictions().add(ontologyClassRestriction);
                 break;
             }

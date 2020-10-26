@@ -18,18 +18,20 @@
 package de.unibonn.model;
 
 
+import org.apache.jena.ontology.OntClass;
+
 import java.util.List;
 
 public class QualifiedCardinalityRestriction {
     int min=-1, max=-1, exact=-1;
     List<String> individuals;
-    String onClass;
+    OntClass onClass;
 
-    public String getOnClass() {
+    public OntClass getOnClass() {
         return onClass;
     }
 
-    public void setOnClass(String onClass) {
+    public void setOnClass(OntClass onClass) {
         this.onClass = onClass;
     }
 

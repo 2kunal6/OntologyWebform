@@ -25,10 +25,19 @@ import java.util.*;
 public class OntologyClassRestriction {
     Restriction restriction;
     OntProperty ontProperty;
+    String ontPropertyString;
     List<String> individuals;
     String description;
     int cardinality, minCardinality, maxCardinality;
     QualifiedCardinalityRestriction qualifiedCardinalityRestriction;
+
+    public String getOntPropertyString() {
+        return ontPropertyString;
+    }
+
+    public void setOntPropertyString(String ontPropertyString) {
+        this.ontPropertyString = ontPropertyString;
+    }
 
     public QualifiedCardinalityRestriction getQualifiedCardinalityRestriction() {
         return qualifiedCardinalityRestriction;
