@@ -72,23 +72,18 @@ public class OntologyProcessor {
                 if(superOntClass.isRestriction()) {
                     OntologyClassRestriction ontologyClassRestriction = new OntologyClassRestriction();
                     ontologyClassRestriction.setRestriction(superOntClass.asRestriction());
-                    ontologyClass.getRestrictions().add(ontologyClassRestriction);
-                }
-            }
-            if(ontologyClass.getRestrictions().size()>0) {
-                for(OntologyClassRestriction ontologyClassRestriction : ontologyClass.getRestrictions()) {
-                    Restriction restriction = ontologyClassRestriction.getRestriction();
-                    if(restriction.isSomeValuesFromRestriction()) {
-                        setSomeValuesFromRestriction(ontologyClasses, ontologyClassRestriction, restriction);
-                    } else if(restriction.isAllValuesFromRestriction()) {
-                        setAllValuesFromRestriction(ontologyClasses, ontologyClassRestriction, restriction);
-                    } else if(restriction.isCardinalityRestriction()) {
-                        setCardinalityRestriction(ontologyClassRestriction, restriction);
-                    } else if(restriction.isMinCardinalityRestriction()) {
-                        setMinCardinalityRestriction(ontologyClassRestriction, restriction);
-                    } else if(restriction.isMaxCardinalityRestriction()) {
-                        setMaxCardinalityRestriction(ontologyClassRestriction, restriction);
+                    if(ontologyClassRestriction.getRestriction().isSomeValuesFromRestriction()) {
+                        setSomeValuesFromRestriction(ontologyClasses, ontologyClassRestriction, ontologyClassRestriction.getRestriction());
+                    } else if(ontologyClassRestriction.getRestriction().isAllValuesFromRestriction()) {
+                        setAllValuesFromRestriction(ontologyClasses, ontologyClassRestriction, ontologyClassRestriction.getRestriction());
+                    } else if(ontologyClassRestriction.getRestriction().isCardinalityRestriction()) {
+                        setCardinalityRestriction(ontologyClassRestriction, ontologyClassRestriction.getRestriction());
+                    } else if(ontologyClassRestriction.getRestriction().isMinCardinalityRestriction()) {
+                        setMinCardinalityRestriction(ontologyClassRestriction, ontologyClassRestriction.getRestriction());
+                    } else if(ontologyClassRestriction.getRestriction().isMaxCardinalityRestriction()) {
+                        setMaxCardinalityRestriction(ontologyClassRestriction, ontologyClassRestriction.getRestriction());
                     }
+                    ontologyClass.getRestrictions().add(ontologyClassRestriction);
                 }
             }
         }
@@ -137,7 +132,6 @@ public class OntologyProcessor {
         List<String> lines = Arrays.asList(fileString.split("\n"));
         int i=0,newsearch=0;
         for(i=0;i<lines.size();i++) {
-            //System.out.println(lines.get(i));
             if(lines.get(i).contains("owl:qualifiedCardinality")) {
                 QualifiedCardinalityRestriction qualifiedCardinalityRestriction = new QualifiedCardinalityRestriction();
                 int exactCount = Integer.parseInt(StringUtils.substringBetween(lines.get(i), "\">", "</owl:qualifiedCardinality>"));
@@ -148,11 +142,23 @@ public class OntologyProcessor {
             }
         }
     }
+    //TODO: change to get the onClass and owlClass perfectly
     void setCurrentRestriction(QualifiedCardinalityRestriction qualifiedCardinalityRestriction, List<OntologyClass> ontologyClasses, int lineNum, List<String> lines) {
         while(!lines.get(lineNum).contains("<owl:onClass"))lineNum--;
         String onClass=StringUtils.substringBetween(lines.get(lineNum), "<owl:onClass", "\"/>");
+        onClass = onClass.substring(onClass.lastIndexOf(";")+1);
         while(!lines.get(lineNum).contains("<owl:Class "))lineNum--;
         String owlClass=StringUtils.substringBetween(lines.get(lineNum), "<owl:Class ", "\">");
-        System.out.println(onClass + " " + owlClass);
+        owlClass = owlClass.substring(owlClass.lastIndexOf(";")+1);
+        qualifiedCardinalityRestriction.setOnClass(onClass);
+
+        for(OntologyClass ontologyClass : ontologyClasses) {
+            if(ontologyClass.getOntclass().toString().contains(owlClass)) {
+                OntologyClassRestriction ontologyClassRestriction = new OntologyClassRestriction();
+                ontologyClassRestriction.setQualifiedCardinalityRestriction(qualifiedCardinalityRestriction);
+                ontologyClass.getRestrictions().add(ontologyClassRestriction);
+                break;
+            }
+        }
     }
 }

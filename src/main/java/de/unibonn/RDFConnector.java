@@ -29,7 +29,6 @@ import org.apache.jena.util.iterator.ExtendedIterator;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.*;
 
 /** RDF Connection example */
