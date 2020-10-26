@@ -1,15 +1,18 @@
 package de.unibonn;
 
 import de.unibonn.model.OntologyClass;
+import org.apache.commons.io.IOUtils;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Paths;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,12 +33,25 @@ public class UploadServlet extends HttpServlet {
             fileName = extractFileName(filePart);
             System.out.println("FILENAME : " + fileName);
             fileContent = filePart.getInputStream();
+        } else {
+            fileContent = new URL(ontology_url).openStream();
+        }
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            IOUtils.copy(fileContent, baos);
+            byte[] bytes = baos.toByteArray();
+            fileContent = new ByteArrayInputStream(bytes);
+            fileContent.reset();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         List<OntologyClass> ontologyClasses = new ArrayList<>();
         ontologyProcessor.setClasses(rdfConnectorQuery, fileContent, ontology_url, ontologyClasses, fileName);
         ontologyProcessor.setClassAndProperties(ontologyClasses);
         ontologyProcessor.setIndividuals(rdfConnectorQuery.getAllTriples(), ontologyClasses);
+        fileContent.reset();
+        ontologyProcessor.setQualifiedCardinalityRestrictions(ontologyClasses, fileContent);
 
         session.setAttribute("ontologyClasses", ontologyClasses);
 

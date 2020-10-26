@@ -23,6 +23,15 @@ import java.util.List;
 public class QualifiedCardinalityRestriction {
     int min=-1, max=-1, exact=-1;
     List<String> individuals;
+    String onClass;
+
+    public String getOnClass() {
+        return onClass;
+    }
+
+    public void setOnClass(String onClass) {
+        this.onClass = onClass;
+    }
 
     public int getMin() {
         return min;

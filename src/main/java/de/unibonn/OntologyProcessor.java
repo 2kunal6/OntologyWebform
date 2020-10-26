@@ -19,11 +19,16 @@ package de.unibonn;
 
 import de.unibonn.model.OntologyClass;
 import de.unibonn.model.OntologyClassRestriction;
+import de.unibonn.model.QualifiedCardinalityRestriction;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.graph.Triple;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.Restriction;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class OntologyProcessor {
@@ -120,5 +125,34 @@ public class OntologyProcessor {
         ontologyClassRestriction.setOntProperty(restriction.asMaxCardinalityRestriction().getOnProperty());
         ontologyClassRestriction.setMaxCardinality(restriction.asMaxCardinalityRestriction().getMaxCardinality());
         ontologyClassRestriction.setDescription("AT MOST " + restriction.asMaxCardinalityRestriction().getMaxCardinality() + " value(s) required here.");
+    }
+
+    void setQualifiedCardinalityRestrictions(List<OntologyClass> ontologyClasses, InputStream fileContent) {
+        String fileString = "";
+        try {
+            fileString = IOUtils.toString(fileContent, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        List<String> lines = Arrays.asList(fileString.split("\n"));
+        int i=0,newsearch=0;
+        for(i=0;i<lines.size();i++) {
+            //System.out.println(lines.get(i));
+            if(lines.get(i).contains("owl:qualifiedCardinality")) {
+                QualifiedCardinalityRestriction qualifiedCardinalityRestriction = new QualifiedCardinalityRestriction();
+                int exactCount = Integer.parseInt(StringUtils.substringBetween(lines.get(i), "\">", "</owl:qualifiedCardinality>"));
+                qualifiedCardinalityRestriction.setExact(exactCount);
+                newsearch=i;
+                setCurrentRestriction(qualifiedCardinalityRestriction, ontologyClasses, i, lines);
+                i=newsearch;
+            }
+        }
+    }
+    void setCurrentRestriction(QualifiedCardinalityRestriction qualifiedCardinalityRestriction, List<OntologyClass> ontologyClasses, int lineNum, List<String> lines) {
+        while(!lines.get(lineNum).contains("<owl:onClass"))lineNum--;
+        String onClass=StringUtils.substringBetween(lines.get(lineNum), "<owl:onClass", "\"/>");
+        while(!lines.get(lineNum).contains("<owl:Class "))lineNum--;
+        String owlClass=StringUtils.substringBetween(lines.get(lineNum), "<owl:Class ", "\">");
+        System.out.println(onClass + " " + owlClass);
     }
 }
