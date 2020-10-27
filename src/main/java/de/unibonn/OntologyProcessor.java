@@ -91,6 +91,9 @@ public class OntologyProcessor {
                         if(ocrOntProperty!=null && ocrOntProperty.toString().contains(presentocr.getOntPropertyString())) {
                             isQualifiedCardinalityRestriction=true;
                             presentocr.setOntProperty(ontologyClassRestriction.getOntProperty());
+                            presentocr.setIndividuals(ontologyClassRestriction.getIndividuals());
+                            presentocr.setDescription("Exactly " + presentocr.getQualifiedCardinalityRestriction().getExact() +
+                                    " value(s) from dropdown required (Create individuals to see dropdown)");
                             break;
                         }
                     }
