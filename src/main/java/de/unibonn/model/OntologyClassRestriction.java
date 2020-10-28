@@ -28,7 +28,6 @@ public class OntologyClassRestriction {
     String ontPropertyString;
     List<String> individuals;
     String description;
-    int cardinality, minCardinality, maxCardinality;
     QualifiedCardinalityRestriction qualifiedCardinalityRestriction;
 
     public String getOntPropertyString() {
@@ -45,30 +44,6 @@ public class OntologyClassRestriction {
 
     public void setQualifiedCardinalityRestriction(QualifiedCardinalityRestriction qualifiedCardinalityRestriction) {
         this.qualifiedCardinalityRestriction = qualifiedCardinalityRestriction;
-    }
-
-    public int getCardinality() {
-        return cardinality;
-    }
-
-    public void setCardinality(int cardinality) {
-        this.cardinality = cardinality;
-    }
-
-    public int getMinCardinality() {
-        return minCardinality;
-    }
-
-    public void setMinCardinality(int minCardinality) {
-        this.minCardinality = minCardinality;
-    }
-
-    public int getMaxCardinality() {
-        return maxCardinality;
-    }
-
-    public void setMaxCardinality(int maxCardinality) {
-        this.maxCardinality = maxCardinality;
     }
 
     public String getDescription() {

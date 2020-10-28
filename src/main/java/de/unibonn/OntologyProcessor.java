@@ -122,17 +122,14 @@ public class OntologyProcessor {
     }
     void setCardinalityRestriction(OntologyClassRestriction ontologyClassRestriction, Restriction restriction) {
        ontologyClassRestriction.setOntProperty(restriction.asCardinalityRestriction().getOnProperty());
-       ontologyClassRestriction.setCardinality(restriction.asCardinalityRestriction().getCardinality());
        ontologyClassRestriction.setDescription("EXACTLY " + restriction.asCardinalityRestriction().getCardinality() + " value(s) required here.");
     }
     void setMinCardinalityRestriction(OntologyClassRestriction ontologyClassRestriction, Restriction restriction) {
         ontologyClassRestriction.setOntProperty(restriction.asMinCardinalityRestriction().getOnProperty());
-        ontologyClassRestriction.setMinCardinality(restriction.asMinCardinalityRestriction().getMinCardinality());
         ontologyClassRestriction.setDescription("AT LEAST " + restriction.asMinCardinalityRestriction().getMinCardinality() + " value(s) required here.");
     }
     void setMaxCardinalityRestriction(OntologyClassRestriction ontologyClassRestriction, Restriction restriction) {
         ontologyClassRestriction.setOntProperty(restriction.asMaxCardinalityRestriction().getOnProperty());
-        ontologyClassRestriction.setMaxCardinality(restriction.asMaxCardinalityRestriction().getMaxCardinality());
         ontologyClassRestriction.setDescription("AT MOST " + restriction.asMaxCardinalityRestriction().getMaxCardinality() + " value(s) required here.");
     }
 

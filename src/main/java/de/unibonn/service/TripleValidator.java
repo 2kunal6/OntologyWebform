@@ -33,19 +33,35 @@ public class TripleValidator {
                 for(OntologyClass ontologyClass : ontologyClasses) {
                     if(!ontologyClass.getOntclass().toString().equals(keySplit[0]))continue;
                     for(OntologyClassRestriction ontologyClassRestriction : ontologyClass.getRestrictions()) {
-                        if(!ontologyClassRestriction.getOntProperty().toString().equals(keySplit[1]))continue;
-                        Restriction restriction = ontologyClassRestriction.getRestriction();
-                        validation+=validateSomeValuesFromRestriction(restriction, individuals, ontologyClassRestriction, keySplit);
-                        validation+=validateAllValuesFromRestriction(restriction, individuals, ontologyClassRestriction, keySplit);
+                        if(ontologyClassRestriction.getOntProperty()==null || !ontologyClassRestriction.getOntProperty().toString().equals(keySplit[1]))continue;
+                        validation+=validateSomeValuesFromRestriction(individuals, ontologyClassRestriction, keySplit);
+                        validation+=validateAllValuesFromRestriction(individuals, ontologyClassRestriction, keySplit);
+                        validation+=validateCardinalityRestriction(individuals, ontologyClassRestriction, keySplit);
                     }
                 }
             }
         }
         return validation;
     }
+    String validateCardinalityRestriction(List<String> individuals, OntologyClassRestriction ontologyClassRestriction, String[] keySplit) {
+        Restriction restriction = ontologyClassRestriction.getRestriction();
+        if(!restriction.isCardinalityRestriction() && !restriction.isMaxCardinalityRestriction() && !restriction.isMinCardinalityRestriction())return "";
 
-    String validateSomeValuesFromRestriction(Restriction restriction, List<String> individuals, OntologyClassRestriction ontologyClassRestriction, String[] keySplit) {
-        if(!restriction.isSomeValuesFromRestriction())return "";
+        String validation="";
+        if(restriction.isCardinalityRestriction() && restriction.asCardinalityRestriction().getCardinality()!=individuals.size()) {
+            validation += ("For class " + keySplit[0] + " and property " + keySplit[1] + " exactly " +
+                    restriction.asCardinalityRestriction().getCardinality() + " values are allowed.\n");
+        } else if(restriction.isMaxCardinalityRestriction() && individuals.size()>restriction.asMaxCardinalityRestriction().getMaxCardinality()) {
+            validation+=("For class " + keySplit[0] + " and property " + keySplit[1] + " maximum " +
+                    restriction.asMaxCardinalityRestriction().getMaxCardinality() + " values are allowed.\n");
+        } else if(restriction.isMinCardinalityRestriction() && individuals.size()<restriction.asMinCardinalityRestriction().getMinCardinality()) {
+            validation+=("For class " + keySplit[0] + " and property " + keySplit[1] + " minimum " +
+                    restriction.asMinCardinalityRestriction().getMinCardinality() + " values are required.\n");
+        }
+        return validation;
+    }
+    String validateSomeValuesFromRestriction(List<String> individuals, OntologyClassRestriction ontologyClassRestriction, String[] keySplit) {
+        if(!ontologyClassRestriction.getRestriction().isSomeValuesFromRestriction())return "";
 
         String validation="";
         boolean isSomeValuesFrom=false;
@@ -62,8 +78,8 @@ public class TripleValidator {
         }
         return validation;
     }
-    String validateAllValuesFromRestriction(Restriction restriction, List<String> individuals, OntologyClassRestriction ontologyClassRestriction, String[] keySplit) {
-        if(!restriction.isAllValuesFromRestriction())return "";
+    String validateAllValuesFromRestriction(List<String> individuals, OntologyClassRestriction ontologyClassRestriction, String[] keySplit) {
+        if(!ontologyClassRestriction.getRestriction().isAllValuesFromRestriction())return "";
 
         String validation="";
 
