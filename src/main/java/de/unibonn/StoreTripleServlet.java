@@ -37,7 +37,9 @@ public class StoreTripleServlet extends HttpServlet {
         for (Map.Entry<String, String[]> entry : params.entrySet()) {
             if(entry.getValue().length!=0 && !entry.getValue()[0].equals("")) {
                 String[] keySplit = entry.getKey().split("_XXX_CLASS_PROPERTY_SEPARATOR_XXX_");
-                rdfConnector.insertTriple(keySplit[0], keySplit[1], entry.getValue()[0]);
+                for(String ind : Arrays.asList((entry.getValue()[0]).split(","))) {
+                    rdfConnector.insertTriple(keySplit[0], keySplit[1], ind);
+                }
             }
         }
 
