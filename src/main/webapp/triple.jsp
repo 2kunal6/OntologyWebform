@@ -47,7 +47,11 @@
 <form method="post" action="storeTriple">
     <%
     String validation = (String) request.getAttribute("validation");
-    if(validation!=null && !validation.equals(""))out.println("<p style='color:red'>" + validation + "</p><br/br/>");
+    if(validation!=null && !validation.equals("")) {
+        String color="red";
+        if(validation.startsWith("SUCCESS"))color="green";
+        out.println("<p style='color:" + color + "'>" + validation + "</p><br/br/>");
+    }
 
     List<OntologyClass> result= (List<OntologyClass>) request.getAttribute("ontologyClasses");
     for(OntologyClass ontologyClass : result) {

@@ -43,9 +43,10 @@ public class StoreTripleServlet extends HttpServlet {
             }
         }
 
-        //request.setAttribute("classPropertiesAsString", classPropertiesAsString);
-        //RequestDispatcher view = request.getRequestDispatcher("triple.jsp");
-        //view.forward(request, response);
+        request.setAttribute("validation", "SUCCESS SUCCESS SUCCESS\n\n\n");
+        request.setAttribute("ontologyClasses", ontologyClasses);
+        RequestDispatcher view = request.getRequestDispatcher("triple.jsp");
+        view.forward(request, response);
 
     }
 }
