@@ -29,6 +29,14 @@
             if(textIdVal)document.getElementById(classTextId).value += (", " + e.options[e.selectedIndex].text);
             else document.getElementById(classTextId).value = e.options[e.selectedIndex].text;
         }
+        function showHideDiv(divId) {
+            var x = document.getElementById(divId);
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
     </script>
     <style>
         table, th, td {border: 1px solid black;border-collapse: collapse;}
@@ -56,6 +64,8 @@
     List<OntologyClass> result= (List<OntologyClass>) request.getAttribute("ontologyClasses");
     for(OntologyClass ontologyClass : result) {
         String val = ontologyClass.getOntclass().toString();
+        out.println("<p onclick='showHideDiv(\"" + val + "\")'>Show/Hide " + val + "</p>");
+        out.println("<div id='" + val + "' style='display:none'>");
         out.println("<table><tr><th>Subject</th><th>Predicate</th><th>Object</th><th>Suggestions</th></tr>");
         out.println("<tr><td>");
         out.println("<label for=" + val + ">" + val + ":</label>");
@@ -100,6 +110,7 @@
             out.println("</td></tr>");
         }
         out.println("</table>");
+        out.println("</div>");
         out.println("<br/><br/>");
     }
     %>
