@@ -50,6 +50,7 @@
     <h1>Triples</h1>
     <p style="font-size:12px;">Please specify the objects as a comma separated list for the corresponding class and property in the text boxes.</p>
     <p style="font-size:12px;margin-top:-10px;">If objects must have some property then those warnings are displayed in red.</p>
+    <p style="font-size:12px;color:red;margin-top:-10px;">Click on the class names to see and provide values.</p>
     <p>--------------------------------------------------------------------------------------------------------------------------------</p>
     <br/><br/><br/>
 <form method="post" action="storeTriple">
@@ -64,7 +65,7 @@
     List<OntologyClass> result= (List<OntologyClass>) request.getAttribute("ontologyClasses");
     for(OntologyClass ontologyClass : result) {
         String val = ontologyClass.getOntclass().toString();
-        out.println("<p onclick='showHideDiv(\"" + val + "\")'>Show/Hide " + val + "</p>");
+        out.println("<a onclick='showHideDiv(\"" + val + "\")'>Show/Hide " + val + "</a>");
         out.println("<div id='" + val + "' style='display:none'>");
         out.println("<table><tr><th>Subject</th><th>Predicate</th><th>Object</th><th>Suggestions</th></tr>");
         out.println("<tr><td>");
