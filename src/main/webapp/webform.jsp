@@ -48,7 +48,9 @@
     for(OntologyClass ontologyClass : result) {
         out.println("<tr><td>");
         String val = ontologyClass.getOntclass().toString();
-        out.println("<label for=" + val + ">" + val + ":</label>");
+        String displayLabel = val;
+        if(ontologyClass.getOntclass().getLabel(null)!=null)displayLabel = ontologyClass.getOntclass().getLabel(null).toString();
+        out.println("<label for=" + val + ">" + displayLabel + ":</label>");
         out.println("</td><td>");
         out.print("<input type='text' id='" + val + "' name='" + val + "'>");
         out.println("</td><td>");

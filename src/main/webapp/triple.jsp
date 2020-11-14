@@ -65,11 +65,14 @@
     List<OntologyClass> result= (List<OntologyClass>) request.getAttribute("ontologyClasses");
     for(OntologyClass ontologyClass : result) {
         String val = ontologyClass.getOntclass().toString();
+        String displayLabel = val;
+        if(ontologyClass.getOntclass().getLabel(null)!=null)displayLabel = ontologyClass.getOntclass().getLabel(null).toString();
+
         out.println("<a onclick='showHideDiv(\"" + val + "\")'>Show/Hide " + val + "</a>");
         out.println("<div id='" + val + "' style='display:none'>");
         out.println("<table><tr><th>Subject</th><th>Predicate</th><th>Object</th><th>Suggestions</th></tr>");
         out.println("<tr><td>");
-        out.println("<label for=" + val + ">" + val + ":</label>");
+        out.println("<label for=" + val + ">" + displayLabel + ":</label>");
         out.print("<input type='text' id='" + val + "' name='" + val + "'>");
         if(ontologyClass.getIndividuals().size()>0) {
             out.println("<select id='" + val+ "_dropdown'; onchange='populateText(\"" + val + "_dropdown\", \"" + val + "\")'>");
@@ -83,7 +86,9 @@
         for(OntProperty ontProperty : ontologyClass.getProperties()) {
             out.println("<tr><td></td><td>");
             String property = ontProperty.toString();
-            out.println("<label for=" + property + ">" + property + ":</label>");
+            String propertyLabel = property;
+            if(ontProperty.getLabel(null)!=null)propertyLabel = ontProperty.getLabel(null).toString();
+            out.println("<label for=" + property + ">" + propertyLabel + ":</label>");
             out.println("</td><td>");
             out.println("<input type='text' id='" + property + "' name='" + val + "_XXX_CLASS_PROPERTY_SEPARATOR_XXX_" + property + "'>");
             out.println("</td><td>");
