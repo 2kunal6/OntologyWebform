@@ -37,9 +37,27 @@ public class TripleValidator {
                         validation+=validateSomeValuesFromRestriction(individuals, ontologyClassRestriction, keySplit);
                         validation+=validateAllValuesFromRestriction(individuals, ontologyClassRestriction, keySplit);
                         validation+=validateCardinalityRestriction(individuals, ontologyClassRestriction, keySplit);
+                        validation+=validateQualifiedCardinalityRestriction(individuals, ontologyClassRestriction, keySplit);
                     }
                 }
             }
+        }
+        return validation;
+    }
+    String validateQualifiedCardinalityRestriction(List<String> individuals, OntologyClassRestriction ontologyClassRestriction, String[] keySplit) {
+        Restriction restriction = ontologyClassRestriction.getRestriction();
+        if(!restriction.isCardinalityRestriction() && !restriction.isMaxCardinalityRestriction() && !restriction.isMinCardinalityRestriction())return "";
+
+        String validation="";
+        if(restriction.isCardinalityRestriction() && restriction.asCardinalityRestriction().getCardinality()!=individuals.size()) {
+            validation += ("For class " + keySplit[0] + " and property " + keySplit[1] + " exactly " +
+                    restriction.asCardinalityRestriction().getCardinality() + " values are allowed.\n");
+        } else if(restriction.isMaxCardinalityRestriction() && individuals.size()>restriction.asMaxCardinalityRestriction().getMaxCardinality()) {
+            validation+=("For class " + keySplit[0] + " and property " + keySplit[1] + " maximum " +
+                    restriction.asMaxCardinalityRestriction().getMaxCardinality() + " values are allowed.\n");
+        } else if(restriction.isMinCardinalityRestriction() && individuals.size()<restriction.asMinCardinalityRestriction().getMinCardinality()) {
+            validation+=("For class " + keySplit[0] + " and property " + keySplit[1] + " minimum " +
+                    restriction.asMinCardinalityRestriction().getMinCardinality() + " values are required.\n");
         }
         return validation;
     }

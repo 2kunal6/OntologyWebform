@@ -68,7 +68,7 @@
         String displayLabel = val;
         if(ontologyClass.getOntclass().getLabel(null)!=null)displayLabel = ontologyClass.getOntclass().getLabel(null).toString();
 
-        out.println("<a onclick='showHideDiv(\"" + val + "\")'>Show/Hide " + val + "</a>");
+        out.println("<a onclick='showHideDiv(\"" + val + "\")'>Show/Hide " + displayLabel + "</a>");
         out.println("<div id='" + val + "' style='display:none'>");
         out.println("<table><tr><th>Subject</th><th>Predicate</th><th>Object</th><th>Suggestions</th></tr>");
         out.println("<tr><td>");
@@ -122,6 +122,7 @@
     %>
     <br/><br/>
     <input type="submit">
+    <br/><br/>
     <br/><br/>
 </form>
 </body>
