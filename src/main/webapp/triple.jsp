@@ -29,6 +29,14 @@
             if(textIdVal)document.getElementById(classTextId).value += (", " + e.options[e.selectedIndex].text);
             else document.getElementById(classTextId).value = e.options[e.selectedIndex].text;
         }
+        function checkSubject(subjectTextAreaId, objectTextAreaId) {
+            var subjectId = document.getElementById(subjectTextAreaId);
+            var objectId = document.getElementById(objectTextAreaId);
+            if(!subjectId.value) {
+                document.getElementById(objectTextAreaId).value = "";
+                alert("Please select subject individual first");
+            }
+        }
         function showHideDiv(divId) {
             var x = document.getElementById(divId);
             if (x.style.display === "none") {
@@ -68,8 +76,8 @@
         String displayLabel = val;
         if(ontologyClass.getOntclass().getLabel(null)!=null)displayLabel = ontologyClass.getOntclass().getLabel(null).toString();
 
-        out.println("<a onclick='showHideDiv(\"" + val + "\")'>" + displayLabel + " [SHOW/HIDE]</a>");
-        out.println("<div id='" + val + "' style='display:none'>");
+        out.println("<a onclick='showHideDiv(\"" + val + "_DIV\")'>" + displayLabel + " [SHOW/HIDE]</a>");
+        out.println("<div id='" + val + "_DIV' style='display:none'>");
         out.println("<table><tr><th>Subject</th><th>Predicate</th><th>Object</th><th>Suggestions</th></tr>");
         out.println("<tr><td>");
         out.println("<label for=" + val + ">" + displayLabel + ":</label>");
@@ -90,7 +98,7 @@
             if(ontProperty.getLabel(null)!=null)propertyLabel = ontProperty.getLabel(null).toString();
             out.println("<label for=" + property + ">" + propertyLabel + ":</label>");
             out.println("</td><td>");
-            out.println("<input type='text' id='" + property + "' name='" + val + "_XXX_CLASS_PROPERTY_SEPARATOR_XXX_" + property + "' oninput='checkSubject(\"" + val + "\")'>");
+            out.println("<input type='text' id='" + property + "' name='" + val + "_XXX_CLASS_PROPERTY_SEPARATOR_XXX_" + property + "' oninput='checkSubject(\"" + val  + "\", \"" + property + "\")'>");
             out.println("</td><td>");
 
             List<OntologyClassRestriction> ontologyClassRestrictions = ontologyClass.getRestrictions();
