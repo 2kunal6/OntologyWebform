@@ -90,7 +90,7 @@
             if(ontProperty.getLabel(null)!=null)propertyLabel = ontProperty.getLabel(null).toString();
             out.println("<label for=" + property + ">" + propertyLabel + ":</label>");
             out.println("</td><td>");
-            out.println("<input type='text' id='" + property + "' name='" + val + "_XXX_CLASS_PROPERTY_SEPARATOR_XXX_" + property + "'>");
+            out.println("<input type='text' id='" + property + "' name='" + val + "_XXX_CLASS_PROPERTY_SEPARATOR_XXX_" + property + "' oninput='checkSubject(\"" + val + "\")'>");
             out.println("</td><td>");
 
             List<OntologyClassRestriction> ontologyClassRestrictions = ontologyClass.getRestrictions();
