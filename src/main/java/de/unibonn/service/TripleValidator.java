@@ -19,6 +19,7 @@ package de.unibonn.service;
 
 import de.unibonn.model.OntologyClass;
 import de.unibonn.model.OntologyClassRestriction;
+import de.unibonn.model.QualifiedCardinalityRestriction;
 import org.apache.jena.ontology.Restriction;
 
 import java.util.*;
@@ -33,7 +34,9 @@ public class TripleValidator {
                 for(OntologyClass ontologyClass : ontologyClasses) {
                     if(!ontologyClass.getOntclass().toString().equals(keySplit[0]))continue;
                     for(OntologyClassRestriction ontologyClassRestriction : ontologyClass.getRestrictions()) {
-                        if(ontologyClassRestriction.getOntProperty()==null || !ontologyClassRestriction.getOntProperty().toString().equals(keySplit[1]))continue;
+                        if(ontologyClassRestriction.getOntProperty()==null ||
+                                !ontologyClassRestriction.getOntProperty().toString().equals(keySplit[1])
+                                || ontologyClassRestriction.getRestriction()==null)continue;
                         validation+=validateSomeValuesFromRestriction(individuals, ontologyClassRestriction, keySplit);
                         validation+=validateAllValuesFromRestriction(individuals, ontologyClassRestriction, keySplit);
                         validation+=validateCardinalityRestriction(individuals, ontologyClassRestriction, keySplit);
@@ -45,19 +48,23 @@ public class TripleValidator {
         return validation;
     }
     String validateQualifiedCardinalityRestriction(List<String> individuals, OntologyClassRestriction ontologyClassRestriction, String[] keySplit) {
-        Restriction restriction = ontologyClassRestriction.getRestriction();
-        if(!restriction.isCardinalityRestriction() && !restriction.isMaxCardinalityRestriction() && !restriction.isMinCardinalityRestriction())return "";
+        if(ontologyClassRestriction.getQualifiedCardinalityRestriction()==null)return "";
 
+        QualifiedCardinalityRestriction qualifiedCardinalityRestriction = ontologyClassRestriction.getQualifiedCardinalityRestriction();
         String validation="";
-        if(restriction.isCardinalityRestriction() && restriction.asCardinalityRestriction().getCardinality()!=individuals.size()) {
-            validation += ("For class " + keySplit[0] + " and property " + keySplit[1] + " exactly " +
-                    restriction.asCardinalityRestriction().getCardinality() + " values are allowed.\n");
-        } else if(restriction.isMaxCardinalityRestriction() && individuals.size()>restriction.asMaxCardinalityRestriction().getMaxCardinality()) {
-            validation+=("For class " + keySplit[0] + " and property " + keySplit[1] + " maximum " +
-                    restriction.asMaxCardinalityRestriction().getMaxCardinality() + " values are allowed.\n");
-        } else if(restriction.isMinCardinalityRestriction() && individuals.size()<restriction.asMinCardinalityRestriction().getMinCardinality()) {
-            validation+=("For class " + keySplit[0] + " and property " + keySplit[1] + " minimum " +
-                    restriction.asMinCardinalityRestriction().getMinCardinality() + " values are required.\n");
+        for(String individual : individuals) {
+            if(!qualifiedCardinalityRestriction.getIndividuals().contains(individual)) {
+                validation+=(individual + " doesn't belong to allowed qualifiedRestriction class.\n");
+            }
+        }
+        if(qualifiedCardinalityRestriction.getExact()!=-1 && individuals.size()!=qualifiedCardinalityRestriction.getExact()) {
+            validation+=("EXACTLY " + qualifiedCardinalityRestriction.getExact() + " individuals are allowed.\n");
+        }
+        if(qualifiedCardinalityRestriction.getMax()!=-1 && individuals.size()>qualifiedCardinalityRestriction.getMax()) {
+            validation+=("MAXIMUM " + qualifiedCardinalityRestriction.getMax() + " individuals are allowed.\n");
+        }
+        if(qualifiedCardinalityRestriction.getMin()!=-1 && individuals.size()<qualifiedCardinalityRestriction.getMin()) {
+            validation+=("MINIMUM " + qualifiedCardinalityRestriction.getMin() + " individuals are allowed.\n");
         }
         return validation;
     }

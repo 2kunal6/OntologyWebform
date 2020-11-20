@@ -68,7 +68,7 @@
         String displayLabel = val;
         if(ontologyClass.getOntclass().getLabel(null)!=null)displayLabel = ontologyClass.getOntclass().getLabel(null).toString();
 
-        out.println("<a onclick='showHideDiv(\"" + val + "\")'>Show/Hide " + displayLabel + "</a>");
+        out.println("<a onclick='showHideDiv(\"" + val + "\")'>" + displayLabel + " [SHOW/HIDE]</a>");
         out.println("<div id='" + val + "' style='display:none'>");
         out.println("<table><tr><th>Subject</th><th>Predicate</th><th>Object</th><th>Suggestions</th></tr>");
         out.println("<tr><td>");
