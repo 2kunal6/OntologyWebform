@@ -81,10 +81,8 @@
         out.println("<table><tr><th>Subject</th><th>Predicate</th><th>Object</th><th>Suggestions</th></tr>");
         out.println("<tr><td>");
         out.println("<label for=" + val + ">" + displayLabel + ":</label>");
-        out.print("<input type='text' id='" + val + "' name='" + val + "'>");
         if(ontologyClass.getIndividuals().size()>0) {
             out.println("<select id='" + val+ "_dropdown'; onchange='populateText(\"" + val + "_dropdown\", \"" + val + "\")'>");
-            out.println("<option value=\"\">None</option>");
             for(String individual : ontologyClass.getIndividuals()) {
                 out.println("<option value=" + individual + ">" + individual + "</option>");
             }
