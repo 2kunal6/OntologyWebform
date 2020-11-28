@@ -87,6 +87,7 @@ public class TripleValidator {
     }
     String validateSomeValuesFromRestriction(List<String> individuals, OntologyClassRestriction ontologyClassRestriction, String[] keySplit) {
         if(!ontologyClassRestriction.getRestriction().isSomeValuesFromRestriction())return "";
+        if(ontologyClassRestriction.getIndividuals()!=null && ontologyClassRestriction.getIndividuals().size()>0)return "";
 
         String validation="";
         boolean isSomeValuesFrom=false;
