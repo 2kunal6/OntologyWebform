@@ -66,6 +66,7 @@ public class OntologyProcessor {
 
     void setRestrictions(List<OntologyClass> ontologyClasses) {
         for(OntologyClass ontologyClass : ontologyClasses) {
+            setRangeRestriction(ontologyClass, ontologyClasses);
             OntClass ontClass = ontologyClass.getOntclass();
             Iterator<OntClass> superIter = ontClass.listSuperClasses();
             while(superIter.hasNext()) {
@@ -99,6 +100,22 @@ public class OntologyProcessor {
                     }
                     if(isQualifiedCardinalityRestriction==false)ontologyClass.getRestrictions().add(ontologyClassRestriction);
                 }
+            }
+        }
+    }
+    void setRangeRestriction(OntologyClass ontologyClass, List<OntologyClass> ontologyClasses) {
+        for(OntProperty ontProperty : ontologyClass.getProperties()) {
+            if(ontProperty.getRange()!=null && ontProperty.getRange().isClass()) {
+                OntologyClassRestriction ontologyClassRestriction = new OntologyClassRestriction();
+                ontologyClassRestriction.setOntProperty(ontProperty);
+                for(OntologyClass currentOntologyClass : ontologyClasses) {
+                    if(currentOntologyClass.getOntclass().equals(ontProperty.getRange().asClass())) {
+                        ontologyClassRestriction.setIndividuals(new ArrayList<String>(currentOntologyClass.getIndividuals()));
+                        break;
+                    }
+                }
+                ontologyClassRestriction.setDescription("ALL values of the command separated values must be from dropdown (Create individuals to see dropdown)");
+                ontologyClass.getRestrictions().add(ontologyClassRestriction);
             }
         }
     }
