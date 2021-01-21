@@ -1,0 +1,575 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#"
+     xml:base="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_affiliation -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_affiliation">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_affiliation"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#person"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_affiliation"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#organization"/>
+            </owl:Restriction>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_component -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_component">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_component"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#protocol"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_component"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#protocol_component"/>
+            </owl:Restriction>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_contact -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_contact">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_contact"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#investigation"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_contact"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#study"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_contact"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#person"/>
+            </owl:Restriction>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_data -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_data">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_data"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_data"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#data"/>
+            </owl:Restriction>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_design -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_design">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_design"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#study"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_design"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#study_design"/>
+            </owl:Restriction>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_factor -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_factor">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_factor"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#study"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_factor"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#factor"/>
+            </owl:Restriction>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_material -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_material">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_material"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_material"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#material"/>
+            </owl:Restriction>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_measurement -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_measurement">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_measurement"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_measurement"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#measurement"/>
+            </owl:Restriction>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_organization -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_organization">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_organization"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#investigation"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_organization"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#study"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_organization"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#organization"/>
+            </owl:Restriction>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_parameter -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_parameter">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_parameter"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#protocol"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_parameter"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#parameter"/>
+            </owl:Restriction>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_part -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_part">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#investigation"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#study"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay"/>
+            </owl:Restriction>
+        </rdfs:range>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_part"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#study"/>
+            </owl:Restriction>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_protocol -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_protocol">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_protocol"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#study"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_protocol"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#protocol"/>
+            </owl:Restriction>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_publication -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_publication">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_publication"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#investigation"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_publication"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#study"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_publication"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#publication"/>
+            </owl:Restriction>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_role -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_role">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_role"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#organization"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_role"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#person"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_role"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#role"/>
+            </owl:Restriction>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_sample -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_sample">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_sample"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#material"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_sample"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#sample"/>
+            </owl:Restriction>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_source -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_source">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_source"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#material"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_source"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#source"/>
+            </owl:Restriction>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_technology -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_technology">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_technology"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#has_technology"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#technology"/>
+            </owl:Restriction>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#core"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#core -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#core"/>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#data -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#data">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#isa_details"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#factor -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#factor">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#isa_details"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#general_details -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#general_details"/>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#investigation -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#investigation">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#core"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#isa_details -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#isa_details"/>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#material -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#material">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#isa_details"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#measurement -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#measurement">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#isa_details"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#organization -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#organization">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#general_details"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#parameter -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#parameter">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#isa_details"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#person -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#person">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#general_details"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#protocol -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#protocol">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#isa_details"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#protocol_component -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#protocol_component">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#isa_details"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#publication -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#publication">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#general_details"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#role -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#role">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#general_details"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#sample -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#sample">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#isa_details"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#source -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#source">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#isa_details"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#study -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#study">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#core"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#study_design -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#study_design">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#isa_details"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#technology -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#technology">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#isa_details"/>
+    </owl:Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+
