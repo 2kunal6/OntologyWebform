@@ -56,12 +56,7 @@ public class OntologyProcessor {
     }
 
     void setClasses(RDFConnector rc, InputStream fileContent, String ontology_url, List<OntologyClass> ontologyClasses, String fileName) {
-        Set<OntClass> classes = rc.getClasses(fileContent, fileName, ontology_url);
-        for(OntClass ontClass : classes) {
-            OntologyClass ontologyClass = new OntologyClass();
-            ontologyClass.setOntclass(ontClass);
-            ontologyClasses.add(ontologyClass);
-        }
+        Set<OntClass> classes = rc.getClasses(fileContent, fileName, ontology_url, ontologyClasses);
     }
 
     void setRestrictions(List<OntologyClass> ontologyClasses) {
@@ -75,6 +70,7 @@ public class OntologyProcessor {
                     OntologyClassRestriction ontologyClassRestriction = new OntologyClassRestriction();
                     ontologyClassRestriction.setRestriction(superOntClass.asRestriction());
                     if(ontologyClassRestriction.getRestriction().isSomeValuesFromRestriction()) {
+                        ontologyClass.getProperties().add(superOntClass.asRestriction().getOnProperty());
                         setSomeValuesFromRestriction(ontologyClasses, ontologyClassRestriction, ontologyClassRestriction.getRestriction());
                     } else if(ontologyClassRestriction.getRestriction().isAllValuesFromRestriction()) {
                         setAllValuesFromRestriction(ontologyClasses, ontologyClassRestriction, ontologyClassRestriction.getRestriction());

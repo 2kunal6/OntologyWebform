@@ -17,10 +17,13 @@
  */
 package de.unibonn;
 
+import de.unibonn.model.OntologyClass;
 import org.apache.jena.atlas.iterator.Iter;
 import org.apache.jena.graph.Triple;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
+import org.apache.jena.ontology.OntProperty;
+import org.apache.jena.ontology.OntResource;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdfconnection.RDFConnectionFuseki;
@@ -60,7 +63,7 @@ public class RDFConnector {
 
     }
 
-    Set<OntClass> getClasses(InputStream fileContent, String fileName, String ontology_url) {
+    Set<OntClass> getClasses(InputStream fileContent, String fileName, String ontology_url, List<OntologyClass> ontologyClasses) {
         OntModel model = ModelFactory.createOntologyModel();
 
         if(ontology_url==null || ontology_url.equals("")) {
@@ -91,6 +94,25 @@ public class RDFConnector {
         for (Map.Entry<String, String> entry : model.getNsPrefixMap().entrySet()) {
             prefixes+=("prefix " + entry.getKey() + ": <" + entry.getValue() + "> \n");
         }
+
+        for(OntClass ontClass : classSet) {
+            OntologyClass ontologyClass = new OntologyClass();
+            ontologyClass.setOntclass(ontClass);
+            ontologyClasses.add(ontologyClass);
+        }
+
+        /*for(OntProperty ontProperty : model.listAllOntProperties().toList()) {
+            for(OntResource ontResource : ontProperty.listDomain().toList()) {
+                for(OntologyClass ontologyClass : ontologyClasses) {
+                    System.out.println(ontologyClass.getOntclass().toString() + " " + ontResource.);
+                    if(ontologyClass.getOntclass().equals(ontResource.asClass())) {
+                        ontologyClass.getProperties().add(ontProperty);
+                        break;
+                    }
+                }
+            }
+        }*/
+
         return classSet;
     }
 
