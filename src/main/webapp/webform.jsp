@@ -50,6 +50,8 @@
         String val = ontologyClass.getOntclass().toString();
         String displayLabel = val;
         if(ontologyClass.getOntclass().getLabel(null)!=null)displayLabel = ontologyClass.getOntclass().getLabel(null).toString();
+        displayLabel = displayLabel.replace(ontologyClass.getBase_uri(), "");
+        
         out.println("<label for=" + val + ">" + displayLabel + ":</label>");
         out.println("</td><td>");
         out.print("<input type='text' id='" + val + "' name='" + val + "'>");

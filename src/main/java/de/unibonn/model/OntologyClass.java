@@ -30,6 +30,16 @@ public class OntologyClass {
     List<OntologyClassRestriction> restrictions = new ArrayList<>();
     List<OntProperty> properties = new ArrayList<>();
 
+    public String getBase_uri() {
+        return base_uri;
+    }
+
+    public void setBase_uri(String base_uri) {
+        this.base_uri = base_uri;
+    }
+
+    String base_uri;
+
     public List<OntProperty> getProperties() {
         return properties;
     }

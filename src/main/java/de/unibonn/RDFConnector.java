@@ -96,6 +96,7 @@ public class RDFConnector {
         for(OntClass ontClass : classSet) {
             OntologyClass ontologyClass = new OntologyClass();
             ontologyClass.setOntclass(ontClass);
+            ontologyClass.setBase_uri((model.getBaseModel().getGraph().getPrefixMapping().getNsPrefixMap()).get(""));
             ontologyClasses.add(ontologyClass);
         }
 
