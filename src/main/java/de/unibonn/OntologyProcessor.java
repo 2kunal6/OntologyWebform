@@ -34,12 +34,6 @@ import java.util.*;
 
 public class OntologyProcessor {
 
-    void setClassAndProperties(List<OntologyClass> classes) {
-        for(OntologyClass ontologyClass : classes) {
-            ontologyClass.getProperties().addAll(ontologyClass.getOntclass().listDeclaredProperties().toList());
-        }
-    }
-
     void setIndividuals(List<Triple> allTriples, List<OntologyClass> ontologyClasses) {
         for(int i=0;i<allTriples.size();i++) {
             Triple triple = allTriples.get(i);
@@ -56,7 +50,7 @@ public class OntologyProcessor {
     }
 
     void setClasses(RDFConnector rc, InputStream fileContent, String ontology_url, List<OntologyClass> ontologyClasses, String fileName) {
-        Set<OntClass> classes = rc.getClasses(fileContent, fileName, ontology_url, ontologyClasses);
+        rc.setClasses(fileContent, fileName, ontology_url, ontologyClasses);
     }
 
     void setRestrictions(List<OntologyClass> ontologyClasses) {
@@ -68,7 +62,7 @@ public class OntologyProcessor {
                 OntClass superOntClass = superIter.next();
                 if(superOntClass.isRestriction()) {
                     ontologyClass.getProperties().add(superOntClass.asRestriction().getOnProperty());
-                    
+
                     OntologyClassRestriction ontologyClassRestriction = new OntologyClassRestriction();
                     ontologyClassRestriction.setRestriction(superOntClass.asRestriction());
                     if(ontologyClassRestriction.getRestriction().isSomeValuesFromRestriction()) {
