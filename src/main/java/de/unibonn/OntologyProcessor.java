@@ -67,10 +67,11 @@ public class OntologyProcessor {
             while(superIter.hasNext()) {
                 OntClass superOntClass = superIter.next();
                 if(superOntClass.isRestriction()) {
+                    ontologyClass.getProperties().add(superOntClass.asRestriction().getOnProperty());
+                    
                     OntologyClassRestriction ontologyClassRestriction = new OntologyClassRestriction();
                     ontologyClassRestriction.setRestriction(superOntClass.asRestriction());
                     if(ontologyClassRestriction.getRestriction().isSomeValuesFromRestriction()) {
-                        ontologyClass.getProperties().add(superOntClass.asRestriction().getOnProperty());
                         setSomeValuesFromRestriction(ontologyClasses, ontologyClassRestriction, ontologyClassRestriction.getRestriction());
                     } else if(ontologyClassRestriction.getRestriction().isAllValuesFromRestriction()) {
                         setAllValuesFromRestriction(ontologyClasses, ontologyClassRestriction, ontologyClassRestriction.getRestriction());
