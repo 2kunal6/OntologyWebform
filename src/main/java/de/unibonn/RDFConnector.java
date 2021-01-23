@@ -20,8 +20,10 @@ package de.unibonn;
 import de.unibonn.model.OntologyClass;
 import org.apache.jena.atlas.iterator.Iter;
 import org.apache.jena.graph.Triple;
+import org.apache.jena.ontology.ObjectProperty;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
+import org.apache.jena.ontology.OntResource;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdfconnection.RDFConnectionFuseki;
@@ -99,6 +101,18 @@ public class RDFConnector {
             ontologyClass.setBase_uri((model.getBaseModel().getGraph().getPrefixMapping().getNsPrefixMap()).get(""));
             ontologyClasses.add(ontologyClass);
         }
+
+        /*for(ObjectProperty objectProperty : model.listObjectProperties().toList()) {
+            for(OntResource ontResource : objectProperty.listDomain().toList()) {
+                String onClass = ontResource.asClass().asRestriction().asSomeValuesFromRestriction().getSomeValuesFrom().toString();
+                for(OntologyClass ontologyClass : ontologyClasses) {
+                    if(ontologyClass.getOntclass().toString().equals(onClass)) {
+                        ontologyClass.getProperties().add(objectProperty);
+                        break;
+                    }
+                }
+            }
+        }*/
 
         return classSet;
     }
