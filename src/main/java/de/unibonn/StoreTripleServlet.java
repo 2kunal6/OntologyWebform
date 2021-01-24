@@ -2,6 +2,7 @@ package de.unibonn;
 
 import de.unibonn.model.OntologyClass;
 import de.unibonn.service.TripleValidator;
+import org.apache.jena.ontology.DatatypeProperty;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,8 +38,9 @@ public class StoreTripleServlet extends HttpServlet {
         for (Map.Entry<String, String[]> entry : params.entrySet()) {
             if(entry.getValue().length!=0 && !entry.getValue()[0].equals("")) {
                 String[] keySplit = entry.getKey().split("_XXX_CLASS_PROPERTY_SEPARATOR_XXX_");
+                String datatypePrefix = getDatatypePrefix(keySplit[1], (List<DatatypeProperty>) session.getAttribute("datatypeProperties"));
                 for(String ind : Arrays.asList((entry.getValue()[0]).split(","))) {
-                    rdfConnector.insertTriple(keySplit[0], keySplit[1], ind);
+                    rdfConnector.insertTriple(keySplit[0], keySplit[1], ind + "^^" + datatypePrefix);
                 }
             }
         }
@@ -48,5 +50,14 @@ public class StoreTripleServlet extends HttpServlet {
         RequestDispatcher view = request.getRequestDispatcher("triple.jsp");
         view.forward(request, response);
 
+    }
+
+    public String getDatatypePrefix(String predicate, List<DatatypeProperty> datatypeProperties) {
+        for(DatatypeProperty datatypeProperty : datatypeProperties) {
+            if(datatypeProperty.toString().equals(predicate)) {
+                return datatypeProperty.getRange().toString();
+            }
+        }
+        return "";
     }
 }

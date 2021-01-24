@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import javax.servlet.http.*;
 
 public class OntologyProcessor {
 
@@ -49,8 +50,8 @@ public class OntologyProcessor {
         }
     }
 
-    void setClasses(RDFConnector rc, InputStream fileContent, String ontology_url, List<OntologyClass> ontologyClasses, String fileName) {
-        rc.setClasses(fileContent, fileName, ontology_url, ontologyClasses);
+    void setClasses(HttpSession session, RDFConnector rc, InputStream fileContent, String ontology_url, List<OntologyClass> ontologyClasses, String fileName) {
+        rc.setClasses(session, fileContent, fileName, ontology_url, ontologyClasses);
     }
 
     void setRestrictions(List<OntologyClass> ontologyClasses) {

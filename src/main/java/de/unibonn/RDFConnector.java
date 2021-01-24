@@ -28,6 +28,7 @@ import org.apache.jena.rdfconnection.RDFConnectionFuseki;
 import org.apache.jena.rdfconnection.RDFConnectionRemoteBuilder;
 import org.apache.jena.util.iterator.ExtendedIterator;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -61,7 +62,7 @@ public class RDFConnector {
 
     }
 
-    Set<OntClass> setClasses(InputStream fileContent, String fileName, String ontology_url, List<OntologyClass> ontologyClasses) {
+    Set<OntClass> setClasses(HttpSession session, InputStream fileContent, String fileName, String ontology_url, List<OntologyClass> ontologyClasses) {
         OntModel model = ModelFactory.createOntologyModel();
 
         if(ontology_url==null || ontology_url.equals("")) {
@@ -114,6 +115,8 @@ public class RDFConnector {
                 }
             }
         }
+
+        session.setAttribute("datatypeProperties", model.listDatatypeProperties().toList());
 
         return classSet;
     }
