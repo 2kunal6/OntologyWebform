@@ -61,7 +61,9 @@ public class OntologyProcessor {
             while(superIter.hasNext()) {
                 OntClass superOntClass = superIter.next();
                 if(superOntClass.isRestriction()) {
-                    ontologyClass.getProperties().add(superOntClass.asRestriction().getOnProperty());
+                    if(!superOntClass.asRestriction().getOnProperty().isDatatypeProperty()) {
+                        ontologyClass.getProperties().add(superOntClass.asRestriction().getOnProperty());
+                    }
 
                     OntologyClassRestriction ontologyClassRestriction = new OntologyClassRestriction();
                     ontologyClassRestriction.setRestriction(superOntClass.asRestriction());

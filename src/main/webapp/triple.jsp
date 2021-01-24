@@ -102,7 +102,7 @@
             out.println("<input type='text' id='" + property + "' name='" + val + "_XXX_CLASS_PROPERTY_SEPARATOR_XXX_" + property + "' oninput='checkSubject(\"" + val  + "\", \"" + property + "\")'>");
             out.println("</td><td>");
 
-            List<OntologyClassRestriction> ontologyClassRestrictions = ontologyClass.getRestrictions();
+            Set<OntologyClassRestriction> ontologyClassRestrictions = ontologyClass.getRestrictions();
             List<String> propertyRestrictionIndividuals=new ArrayList<String>();
             String description = "";
             for(OntologyClassRestriction ontologyClassRestriction : ontologyClassRestrictions) {

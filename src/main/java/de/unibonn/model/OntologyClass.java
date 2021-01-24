@@ -27,8 +27,8 @@ public class OntologyClass {
     OntClass ontclass;
     List<Triple> triples = new ArrayList<>();
     Set<String> individuals = new HashSet<>();
-    List<OntologyClassRestriction> restrictions = new ArrayList<>();
-    List<OntProperty> properties = new ArrayList<>();
+    Set<OntologyClassRestriction> restrictions = new HashSet<>();
+    Set<OntProperty> properties = new HashSet<>();
 
     public String getBase_uri() {
         return base_uri;
@@ -40,19 +40,19 @@ public class OntologyClass {
 
     String base_uri;
 
-    public List<OntProperty> getProperties() {
+    public Set<OntProperty> getProperties() {
         return properties;
     }
 
-    public void setProperties(List<OntProperty> properties) {
+    public void setProperties(Set<OntProperty> properties) {
         this.properties = properties;
     }
 
-    public List<OntologyClassRestriction> getRestrictions() {
+    public Set<OntologyClassRestriction> getRestrictions() {
         return restrictions;
     }
 
-    public void setRestrictions(List<OntologyClassRestriction> restrictions) {
+    public void setRestrictions(Set<OntologyClassRestriction> restrictions) {
         this.restrictions = restrictions;
     }
 

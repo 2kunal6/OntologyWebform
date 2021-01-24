@@ -18,12 +18,10 @@
 package de.unibonn;
 
 import de.unibonn.model.OntologyClass;
+import de.unibonn.model.OntologyClassRestriction;
 import org.apache.jena.atlas.iterator.Iter;
 import org.apache.jena.graph.Triple;
-import org.apache.jena.ontology.ObjectProperty;
-import org.apache.jena.ontology.OntClass;
-import org.apache.jena.ontology.OntModel;
-import org.apache.jena.ontology.OntResource;
+import org.apache.jena.ontology.*;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdfconnection.RDFConnectionFuseki;
@@ -102,17 +100,20 @@ public class RDFConnector {
             ontologyClasses.add(ontologyClass);
         }
 
-        /*for(ObjectProperty objectProperty : model.listObjectProperties().toList()) {
-            for(OntResource ontResource : objectProperty.listDomain().toList()) {
-                String onClass = ontResource.asClass().asRestriction().asSomeValuesFromRestriction().getSomeValuesFrom().toString();
-                for(OntologyClass ontologyClass : ontologyClasses) {
-                    if(ontologyClass.getOntclass().toString().equals(onClass)) {
-                        ontologyClass.getProperties().add(objectProperty);
-                        break;
+        for(DatatypeProperty datatypeProperty : model.listDatatypeProperties().toList()) {
+            for(OntologyClass ontologyClass : ontologyClasses) {
+                if(ontologyClass.getOntclass().toString().equals(datatypeProperty.getDomain().asClass().toString())) {
+                    ontologyClass.getProperties().add(datatypeProperty);
+                    OntologyClassRestriction ontologyClassRestriction = new OntologyClassRestriction();
+                    ontologyClassRestriction.setOntProperty(datatypeProperty);
+                    if(datatypeProperty.getRange()!=null) {
+                        ontologyClassRestriction.setDescription("Please insert value of type " + datatypeProperty.getRange().asClass().toString());
                     }
+                    ontologyClass.getRestrictions().add(ontologyClassRestriction);
+                    break;
                 }
             }
-        }*/
+        }
 
         return classSet;
     }
