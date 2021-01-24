@@ -17,13 +17,15 @@
  */
 package de.unibonn.model;
 
+import org.apache.jena.base.Sys;
 import org.apache.jena.graph.Triple;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntProperty;
+import org.apache.jena.rdf.model.Statement;
 
 import java.util.*;
 
-public class OntologyClass {
+public class OntologyClass implements Comparable<OntologyClass> {
     OntClass ontclass;
     List<Triple> triples = new ArrayList<>();
     Set<String> individuals = new HashSet<>();
@@ -78,6 +80,25 @@ public class OntologyClass {
 
     public void setTriples(List<Triple> triples) {
         this.triples = triples;
+    }
+
+    private Integer getPos(List<Statement> stmtList) {
+        for(Statement stmt : stmtList) {
+            if(stmt.getPredicate().toString().equals(base_uri + "view_position")) {
+                return stmt.getObject().asLiteral().getInt();
+            }
+        }
+        return null;
+    }
+
+    public int compareTo(OntologyClass other) {
+        Integer otherPos = getPos(other.ontclass.listProperties().toList());
+        Integer ownPos = getPos(this.ontclass.listProperties().toList());
+
+        if(otherPos == null)return -1;
+        if(ownPos == null)return 1;
+        if(ownPos < otherPos)return -1;
+        return 1;
     }
 }
 

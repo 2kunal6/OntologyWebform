@@ -34,6 +34,7 @@ public class TripleServlet extends HttpServlet {
         ontologyProcessor.setIndividuals(rdfConnectorQuery.getAllTriples(), ontologyClasses);
         ontologyProcessor.setRestrictions(ontologyClasses);
 
+        Collections.sort(ontologyClasses);
         request.setAttribute("ontologyClasses", ontologyClasses);
         RequestDispatcher view = request.getRequestDispatcher("triple.jsp");
         view.forward(request, response);

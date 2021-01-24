@@ -13,6 +13,23 @@
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#view_position -->
+
+    <owl:AnnotationProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#view_position"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
     // Object Properties
     //
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -477,6 +494,7 @@
                 <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#technology"/>
             </owl:Restriction>
         </rdfs:subClassOf>
+        <view_position rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3000</view_position>
     </owl:Class>
     
 
@@ -537,6 +555,7 @@
                 <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#publication"/>
             </owl:Restriction>
         </rdfs:subClassOf>
+        <view_position rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1000</view_position>
     </owl:Class>
     
 
@@ -723,6 +742,7 @@
                 <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#publication"/>
             </owl:Restriction>
         </rdfs:subClassOf>
+        <view_position rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2000</view_position>
     </owl:Class>
     
 

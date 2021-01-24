@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @WebServlet("/upload")
@@ -54,6 +55,7 @@ public class UploadServlet extends HttpServlet {
 
         session.setAttribute("ontologyClasses", ontologyClasses);
 
+        Collections.sort(ontologyClasses);
         request.setAttribute("ontologyClasses", ontologyClasses);
         RequestDispatcher view = request.getRequestDispatcher("webform.jsp");
         view.forward(request, response);
