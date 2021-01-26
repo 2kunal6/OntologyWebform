@@ -39,8 +39,9 @@ public class StoreTripleServlet extends HttpServlet {
             if(entry.getValue().length!=0 && !entry.getValue()[0].equals("")) {
                 String[] keySplit = entry.getKey().split("_XXX_CLASS_PROPERTY_SEPARATOR_XXX_");
                 String datatypePrefix = getDatatypePrefix(keySplit[1], (List<DatatypeProperty>) session.getAttribute("datatypeProperties"));
+                if(!datatypePrefix.equals(""))datatypePrefix = "^^" + datatypePrefix;
                 for(String ind : Arrays.asList((entry.getValue()[0]).split(","))) {
-                    rdfConnector.insertTriple(keySplit[0], keySplit[1], ind + "^^" + datatypePrefix);
+                    rdfConnector.insertTriple(keySplit[0], keySplit[1], ind + datatypePrefix);
                 }
             }
         }

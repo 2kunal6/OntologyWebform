@@ -103,6 +103,7 @@ public class RDFConnector {
 
         for(DatatypeProperty datatypeProperty : model.listDatatypeProperties().toList()) {
             for(OntologyClass ontologyClass : ontologyClasses) {
+                if(datatypeProperty.getDomain()==null)continue;
                 if(ontologyClass.getOntclass().toString().equals(datatypeProperty.getDomain().asClass().toString())) {
                     ontologyClass.getProperties().add(datatypeProperty);
                     OntologyClassRestriction ontologyClassRestriction = new OntologyClassRestriction();
