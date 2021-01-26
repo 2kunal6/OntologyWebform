@@ -75,7 +75,7 @@
         String val = ontologyClass.getOntclass().toString();
         String displayLabel = val;
         if(ontologyClass.getOntclass().getLabel(null)!=null)displayLabel = ontologyClass.getOntclass().getLabel(null).toString();
-        displayLabel = displayLabel.replace(ontologyClass.getBase_uri(), "");
+        if(displayLabel!=null)displayLabel = displayLabel.replace(ontologyClass.getBase_uri(), "");
 
         out.println("<a onclick='showHideDiv(\"" + val + "_DIV\")'>" + displayLabel + " [SHOW/HIDE]</a>");
         out.println("<div id='" + val + "_DIV' style='display:none'>");
@@ -95,7 +95,7 @@
             String property = ontProperty.toString();
             String propertyLabel = property;
             if(ontProperty.getLabel(null)!=null)propertyLabel = ontProperty.getLabel(null).toString();
-            propertyLabel = propertyLabel.replace(ontologyClass.getBase_uri(), "");
+            if(propertyLabel!=null)propertyLabel = propertyLabel.replace(ontologyClass.getBase_uri(), "");
 
             out.println("<label for=" + property + ">" + propertyLabel + ":</label>");
             out.println("</td><td>");
