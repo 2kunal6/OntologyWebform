@@ -426,6 +426,113 @@
     
 
 
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_assay_name -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_assay_name">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_dataproperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <view_position rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5000</view_position>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_data_transformation_name -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_data_transformation_name">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_dataproperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <view_position rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">8000</view_position>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_dataproperty -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_dataproperty">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_derived_data_file -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_derived_data_file">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_dataproperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <view_position rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">11000</view_position>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_extract_name -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_extract_name">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_dataproperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <view_position rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3000</view_position>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_image_file -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_image_file">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_dataproperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <view_position rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6000</view_position>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_labelled_extract_name -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_labelled_extract_name">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_dataproperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <view_position rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4000</view_position>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_normalization_name -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_normalization_name">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_dataproperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <view_position rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">10000</view_position>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_raw_data_file -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_raw_data_file">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_dataproperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <view_position rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">7000</view_position>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_sample_name -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_sample_name">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay_dataproperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#assay"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <view_position rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2000</view_position>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#investigation_dataproperty -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/kunal/ontologies/2021/0/isa_tab_ontology#investigation_dataproperty">

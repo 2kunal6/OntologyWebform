@@ -17,11 +17,11 @@
  */
 package de.unibonn.model;
 
-import org.apache.jena.base.Sys;
 import org.apache.jena.graph.Triple;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntProperty;
-import org.apache.jena.rdf.model.Statement;
+
+import de.unibonn.util.OntologyStatementUtil;
 
 import java.util.*;
 
@@ -30,7 +30,8 @@ public class OntologyClass implements Comparable<OntologyClass> {
     List<Triple> triples = new ArrayList<>();
     Set<String> individuals = new HashSet<>();
     Set<OntologyClassRestriction> restrictions = new HashSet<>();
-    Set<OntProperty> properties = new HashSet<>();
+    List<OntProperty> properties = new ArrayList<>();
+    OntologyStatementUtil ontologyStatementUtil = new OntologyStatementUtil();
 
     public String getBase_uri() {
         return base_uri;
@@ -42,11 +43,11 @@ public class OntologyClass implements Comparable<OntologyClass> {
 
     String base_uri;
 
-    public Set<OntProperty> getProperties() {
+    public List<OntProperty> getProperties() {
         return properties;
     }
 
-    public void setProperties(Set<OntProperty> properties) {
+    public void setProperties(List<OntProperty> properties) {
         this.properties = properties;
     }
 
@@ -82,18 +83,9 @@ public class OntologyClass implements Comparable<OntologyClass> {
         this.triples = triples;
     }
 
-    private Integer getPos(List<Statement> stmtList) {
-        for(Statement stmt : stmtList) {
-            if(stmt.getPredicate().toString().equals(base_uri + "view_position")) {
-                return stmt.getObject().asLiteral().getInt();
-            }
-        }
-        return null;
-    }
-
     public int compareTo(OntologyClass other) {
-        Integer otherPos = getPos(other.ontclass.listProperties().toList());
-        Integer ownPos = getPos(this.ontclass.listProperties().toList());
+        Integer otherPos = ontologyStatementUtil.getPos(other.ontclass.listProperties().toList());
+        Integer ownPos = ontologyStatementUtil.getPos(this.ontclass.listProperties().toList());
 
         if(otherPos == null)return -1;
         if(ownPos == null)return 1;

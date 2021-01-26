@@ -20,6 +20,7 @@ package de.unibonn;
 import de.unibonn.model.OntologyClass;
 import de.unibonn.model.OntologyClassRestriction;
 import de.unibonn.model.QualifiedCardinalityRestriction;
+import de.unibonn.util.OntPropertyComparator;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.graph.Triple;
@@ -95,6 +96,7 @@ public class OntologyProcessor {
                     if(isQualifiedCardinalityRestriction==false)ontologyClass.getRestrictions().add(ontologyClassRestriction);
                 }
             }
+            Collections.sort(ontologyClass.getProperties(), new OntPropertyComparator());
         }
     }
     void setRangeRestriction(OntologyClass ontologyClass, List<OntologyClass> ontologyClasses) {
