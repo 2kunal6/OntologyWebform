@@ -122,12 +122,14 @@ public class RDFConnector {
                 if(objectProperty.getDomain()==null)continue;
                 if(ontologyClass.getOntclass().toString().equals(objectProperty.getDomain().asClass().toString())) {
                     ontologyClass.getProperties().add(objectProperty);
-                    OntologyClassRestriction ontologyClassRestriction = new OntologyClassRestriction();
-                    ontologyClassRestriction.setOntProperty(objectProperty);
-                    if(objectProperty.getRange()!=null) {
-                        ontologyClassRestriction.setDescription("Please insert value of type " + objectProperty.getRange().asClass().toString());
+                    if(objectProperty.listRange()!=null) {
+                        for (OntResource rangeProp : objectProperty.listRange().toList()) {
+                            OntologyClassRestriction ontologyClassRestriction = new OntologyClassRestriction();
+                            ontologyClassRestriction.setOntProperty(objectProperty);
+                            ontologyClassRestriction.setDescription("Please insert value of type " + rangeProp.asClass().toString());
+                            ontologyClass.getRestrictions().add(ontologyClassRestriction);
+                        }
                     }
-                    ontologyClass.getRestrictions().add(ontologyClassRestriction);
                     break;
                 }
             }
