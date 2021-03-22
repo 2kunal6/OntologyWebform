@@ -117,6 +117,22 @@ public class RDFConnector {
             }
         }
 
+        for(ObjectProperty objectProperty : model.listObjectProperties().toList()) {
+            for(OntologyClass ontologyClass : ontologyClasses) {
+                if(objectProperty.getDomain()==null)continue;
+                if(ontologyClass.getOntclass().toString().equals(objectProperty.getDomain().asClass().toString())) {
+                    ontologyClass.getProperties().add(objectProperty);
+                    OntologyClassRestriction ontologyClassRestriction = new OntologyClassRestriction();
+                    ontologyClassRestriction.setOntProperty(objectProperty);
+                    if(objectProperty.getRange()!=null) {
+                        ontologyClassRestriction.setDescription("Please insert value of type " + objectProperty.getRange().asClass().toString());
+                    }
+                    ontologyClass.getRestrictions().add(ontologyClassRestriction);
+                    break;
+                }
+            }
+        }
+
         session.setAttribute("datatypeProperties", model.listDatatypeProperties().toList());
 
         return classSet;
